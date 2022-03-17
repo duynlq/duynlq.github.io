@@ -1,0 +1,36 @@
+---
+title: <center><font size=12 color="black" family="Daytona"><b>Duy Nguyen</b></font></center>
+output: html_document
+---
+```{r face, include=FALSE, echo=FALSE, warning=FALSE, message=FALSE}
+library(magick)
+path = knitr::include_graphics("face.jpg")
+im = image_read(path)
+
+# get height, width and crop longer side to match shorter side
+ii <- magick::image_info(im)
+ii_min <- min(ii$width, ii$height)
+im1 <- magick::image_crop(im, geometry=paste0(ii_min, "x", ii_min, "+0+0"), repage=TRUE)
+
+# create a new image with white background and black circle
+fig <- magick::image_draw(image_blank(ii_min, ii_min))
+symbols(ii_min/2, ii_min/2, circles=(ii_min/2)-3, bg='black', inches=FALSE, add=TRUE)
+dev.off()
+
+# create an image composite using both images
+im2 <- magick::image_composite(im1, fig, operator='copyopacity')
+```
+
+```{r echo=FALSE, fig.align="center"}
+magick::image_background(im2, 'white') # set background as white
+```
+
+<center><font size = 5>[Resume](https://drive.google.com/file/d/1omMJCz4QFnzkjWX05snrKyBEztRHSyz5/view?usp=sharing) | [LinkedIn](https://www.linkedin.com/in/epicduy/) | [GitHub](https://github.com/epicduy)
+
+I am pursuing MS degree in Data Science at Southern Methodist University.
+
+My interests include machine learning and computer simulations.
+
+<body>
+    <div class="footer">Please check out other tabs representing work / analyses that I have completed!</div>
+</body></font></center>
