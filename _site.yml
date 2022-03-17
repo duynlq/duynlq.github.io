@@ -1,0 +1,8 @@
+name: "duy-portfolio"
+navbar:
+  title: "Duy Nguyen's Data Science Portfolio"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Beers and Breweries"
+      href: Beers-Breweries-EDA.html
