@@ -1,10 +1,12 @@
 ---
-title: "MSDS 6306: Doing Data Science - Case Study 1"
+<font family="Courier">title: "MSDS 6306: Doing Data Science - Case Study 1"
 author: "Duy Nguyen and Garrett Shankel"
 output: html_document
+
 ---
-<font family="Courier">
-## Introduction
+<font size=6 color="Green" family="Courier"><b>
+Introduction</b></font>
+
 The CEO and CFO of a major brewing company have provided our team with a dataset for 
 nationwide statistics of beers and breweries. Our job as data scientists are to perform
 a thorough investigation into this data.
@@ -33,7 +35,8 @@ breweries = read.csv('Breweries.csv')
 beers = read.csv('Beers.csv')
 ```
 
-## How Many Breweries are Present in Each State?
+<font size=6 color="Green" family="Courier"><b>
+How Many Breweries are Present in Each State?</b></font>
 
 ```{r echo=FALSE, fig.align="center"}
 # Wrangling the data and plot
@@ -51,7 +54,8 @@ topbreweries = breweries %>% count(State, sort = TRUE)
 #head(topbreweries)
 ```
 
-## Building a Brewery Count Heatmap
+<font size=6 color="Green" family="Courier"><b>
+Building a Brewery Count Heatmap</b></font>
 
 ```{r echo=FALSE, fig.align="center"}
 # Pulling centroid positions for US heatmap
@@ -89,7 +93,8 @@ plot_usmap(include = c("DC", "MD", "DE", "CT", "NH", "MA", "VT", "NJ", "RI"), co
   geom_text(size = 2.7, color = "red", data = breweries_with_position_small_states, aes(x = x, y = y, label = paste(abbr, count, sep = ":")))
 ```
 
-## Heatmap of Brewery Density versus Population 
+<font size=6 color="Green" family="Courier"><b>
+Brewery Density versus Population</b></font>
 
 ```{r echo=FALSE, fig.align="center"}
 # Facilitating the merge
@@ -126,7 +131,9 @@ colnames(mergedData)[5] = "Beer_Name"
 #tail(mergedData)
 ```
 
-## Addressing The Missing Values In Each Column
+<font size=6 color="Green" family="Courier"><b>
+The Missing Values In Each Column</b></font>
+
 From the data provided, 62 values are missing in the ABV column, and 1005 are missing in the IBU column. In order to move forward with the investigation we needed to impute these values.
 
 First we started by visualizing the data. As shown in the first graph below the distribution of ABV is fairly normal. 
@@ -159,7 +166,8 @@ mergedData = mergedData %>%
 #tail(mergedData)
 ```
 
-## Medians for ABV and IBU of Each State
+<font size=6 color="Green" family="Courier"><b>
+Medians for ABV and IBU of Each State</b></font>
 
 ```{r echo=FALSE, fig.align="center"}
 # Plot medium ABV
@@ -187,7 +195,9 @@ ggplot(mergedDataIBU, aes(x = State, y = median, fill = State)) +
 <!-- #mergedData[which.max(mergedData$IBU), "State"] -->
 <!-- ``` -->
 
-## Summary and Distribution of the ABV Variable
+<font size=6 color="Green" family="Courier"><b>
+Summary and Distribution of the ABV Variable</b></font>
+
 ABV has a minimum of 0.001, a maximum of 0.128, a mean of 0.060, and a median of 0.057. 
 
 Its standard deviation is 0.013 and its 1st and 3rd quarters are 0.050 and 0.067, respectively. 
@@ -216,7 +226,9 @@ boxplot(mergedData$ABV, horizontal = TRUE, notch = TRUE)
 
 ```
 
-## Relationship Between Bitterness and Alcoholic Content
+<font size=6 color="Green" family="Courier"><b>
+Relationship Between Bitterness and Alcoholic Content</b></font>
+
 The relationship is fairly linear, with a rise in IBU corresponding in a rise in ABV.
 
 With an r value of 0.51 we can consider this as a moderately correlated relationship. 
@@ -294,7 +306,9 @@ ggscatter(mergedData, x = "IBU", y = "ABV",
 <!-- which.max(hypertune$accuracy) -->
 <!-- ``` -->
 
-## Knocking your socks off
+<font size=6 color="Green" family="Courier"><b>
+Knocking your socks off</b></font>
+
 This pie chart shows the 10 most popular styles of beers.
 
 First that 9 of the styles from the top 10 are ales.
@@ -348,7 +362,9 @@ pie(top10beers$n, top10_names_and_percentages,
 #((topbeers$n[2] + topbeers$n[1]) / 2410) * 100
 ```
 
-## Conclusion
+<font size=6 color="Green" family="Courier"><b>
+Conclusion</b></font>
+
 Thank you for your time. In this investigation we have covered; brewery count per state, 
 beer descriptors per state, nationwide statistics for ABV, the relationships between ABV and IBU, and the top 10 beer styles. 
 Some notable highlights from this investigation are:

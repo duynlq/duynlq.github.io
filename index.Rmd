@@ -14,7 +14,7 @@ im1 <- magick::image_crop(im, geometry=paste0(ii_min, "x", ii_min, "+0+0"), repa
 
 # create a new image with white background and black circle
 fig <- magick::image_draw(image_blank(ii_min, ii_min))
-symbols(ii_min/2, ii_min/2, circles=(ii_min/2)-3, bg='black', inches=FALSE, add=TRUE)
+symbols(ii_min/2, ii_min/2, circles=(ii_min/2)-3, bg='yellow', inches=FALSE, add=TRUE)
 dev.off()
 
 # create an image composite using both images

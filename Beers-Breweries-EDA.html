@@ -12,7 +12,7 @@
 <meta name="author" content="Duy Nguyen and Garrett Shankel" />
 
 
-<title>MSDS 6306: Doing Data Science - Case Study 1</title>
+<title>Beers-Breweries-EDA.knit</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -260,44 +260,34 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">MSDS 6306: Doing Data Science - Case Study 1</h1>
-<h4 class="author">Duy Nguyen and Garrett Shankel</h4>
 
 </div>
 
 
-<p><font family="Courier"> ## Introduction The CEO and CFO of a major brewing company have provided our team with a dataset for nationwide statistics of beers and breweries. Our job as data scientists are to perform a thorough investigation into this data.</p>
+<p><font size=6 color="Green" family="Courier"><b> Introduction</b></font></p>
+<p>The CEO and CFO of a major brewing company have provided our team with a dataset for nationwide statistics of beers and breweries. Our job as data scientists are to perform a thorough investigation into this data.</p>
 <p>Things we have found include but are not limited to:</p>
 <ul>
 <li>Outlining the data through graphical means</li>
 <li>Mapping the correlations between ABV and IBU</li>
 <li>Investigating the brewery density per state</li>
 </ul>
-<div id="how-many-breweries-are-present-in-each-state" class="section level2">
-<h2>How Many Breweries are Present in Each State?</h2>
+<p><font size=6 color="Green" family="Courier"><b> How Many Breweries are Present in Each State?</b></font></p>
 <p><img src="Beers-Breweries-EDA_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="building-a-brewery-count-heatmap" class="section level2">
-<h2>Building a Brewery Count Heatmap</h2>
+<p><font size=6 color="Green" family="Courier"><b> Building a Brewery Count Heatmap</b></font></p>
 <p><img src="Beers-Breweries-EDA_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /><img src="Beers-Breweries-EDA_files/figure-html/unnamed-chunk-4-2.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="heatmap-of-brewery-density-versus-population" class="section level2">
-<h2>Heatmap of Brewery Density versus Population</h2>
+<p><font size=6 color="Green" family="Courier"><b> Brewery Density versus Population</b></font></p>
 <p><img src="Beers-Breweries-EDA_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
 <!-- ## Merging "Beers" Data With "Breweries" Data -->
 <!-- After merging we can see that the columns are properly placed with no repeats. -->
-</div>
-<div id="addressing-the-missing-values-in-each-column" class="section level2">
-<h2>Addressing The Missing Values In Each Column</h2>
+<p><font size=6 color="Green" family="Courier"><b> The Missing Values In Each Column</b></font></p>
 <p>From the data provided, 62 values are missing in the ABV column, and 1005 are missing in the IBU column. In order to move forward with the investigation we needed to impute these values.</p>
 <p>First we started by visualizing the data. As shown in the first graph below the distribution of ABV is fairly normal.</p>
 <p>Based on this we decided to use the mean of the data set in order to replace the missing values.</p>
 <p>Next we generated a graph of the IBU data. As is shown in the graph the data is right skewed.</p>
 <p>Therefore we chose the median of IBU as a replacement for the missing values since the median is robust to skewness.</p>
 <p><img src="Beers-Breweries-EDA_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /><img src="Beers-Breweries-EDA_files/figure-html/unnamed-chunk-7-2.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="medians-for-abv-and-ibu-of-each-state" class="section level2">
-<h2>Medians for ABV and IBU of Each State</h2>
+<p><font size=6 color="Green" family="Courier"><b> Medians for ABV and IBU of Each State</b></font></p>
 <p><img src="Beers-Breweries-EDA_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /><img src="Beers-Breweries-EDA_files/figure-html/unnamed-chunk-8-2.png" width="672" style="display: block; margin: auto;" /></p>
 <!-- ## Determine which state with the maximum alcoholic (ABV) beer, and the most bitter (IBU) beer -->
 <!-- Colorado has the maximum alcoholic beer. -->
@@ -306,16 +296,12 @@ $(document).ready(function () {
 <!-- #mergedData[which.max(mergedData$ABV), "State"] -->
 <!-- #mergedData[which.max(mergedData$IBU), "State"] -->
 <!-- ``` -->
-</div>
-<div id="summary-and-distribution-of-the-abv-variable" class="section level2">
-<h2>Summary and Distribution of the ABV Variable</h2>
+<p><font size=6 color="Green" family="Courier"><b> Summary and Distribution of the ABV Variable</b></font></p>
 <p>ABV has a minimum of 0.001, a maximum of 0.128, a mean of 0.060, and a median of 0.057.</p>
 <p>Its standard deviation is 0.013 and its 1st and 3rd quarters are 0.050 and 0.067, respectively.</p>
 <p>The distribution of ABV is roughly normal based on the histogram, and both the scatterplot and boxplot show lots of variance and outliers.</p>
 <p><img src="Beers-Breweries-EDA_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /><img src="Beers-Breweries-EDA_files/figure-html/unnamed-chunk-9-2.png" width="672" style="display: block; margin: auto;" /><img src="Beers-Breweries-EDA_files/figure-html/unnamed-chunk-9-3.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="relationship-between-bitterness-and-alcoholic-content" class="section level2">
-<h2>Relationship Between Bitterness and Alcoholic Content</h2>
+<p><font size=6 color="Green" family="Courier"><b> Relationship Between Bitterness and Alcoholic Content</b></font></p>
 <p>The relationship is fairly linear, with a rise in IBU corresponding in a rise in ABV.</p>
 <p>With an r value of 0.51 we can consider this as a moderately correlated relationship.</p>
 <p><img src="Beers-Breweries-EDA_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -373,17 +359,13 @@ $(document).ready(function () {
 <!-- max(hypertune$accuracy) -->
 <!-- which.max(hypertune$accuracy) -->
 <!-- ``` -->
-</div>
-<div id="knocking-your-socks-off" class="section level2">
-<h2>Knocking your socks off</h2>
+<p><font size=6 color="Green" family="Courier"><b> Knocking your socks off</b></font></p>
 <p>This pie chart shows the 10 most popular styles of beers.</p>
 <p>First that 9 of the styles from the top 10 are ales.</p>
 <p>Second, 56% of all beers are one of these top 10 styles.</p>
 <p>Third, 27% of all beers are either an APA or an American IPA.</p>
 <p><img src="Beers-Breweries-EDA_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="conclusion" class="section level2">
-<h2>Conclusion</h2>
+<p><font size=6 color="Green" family="Courier"><b> Conclusion</b></font></p>
 <p>Thank you for your time. In this investigation we have covered; brewery count per state, beer descriptors per state, nationwide statistics for ABV, the relationships between ABV and IBU, and the top 10 beer styles. Some notable highlights from this investigation are:</p>
 <ul>
 <li>In the brewery density map we saw that there are a number of states that have a low density of breweries for their population.</li>
@@ -403,7 +385,6 @@ $(document).ready(function () {
 <li><a href="mailto:gshankel@mail.smu.edu" class="email">gshankel@mail.smu.edu</a> </font></li>
 </ul></li>
 </ul>
-</div>
 
 
 
