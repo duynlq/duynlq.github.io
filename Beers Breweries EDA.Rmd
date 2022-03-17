@@ -3,7 +3,7 @@ title: "MSDS 6306: Doing Data Science - Case Study 1"
 author: "Duy Nguyen and Garrett Shankel"
 output: html_document
 ---
-
+<font family="Courier">
 ## Introduction
 The CEO and CFO of a major brewing company have provided our team with a dataset for 
 nationwide statistics of beers and breweries. Our job as data scientists are to perform
@@ -365,3 +365,4 @@ Please let us know if you have any questions.
     + duynq@mail.smu.edu
 * Garrett Shankel
     + gshankel@mail.smu.edu
+</font>

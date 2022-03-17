@@ -1,5 +1,5 @@
 ---
-title: <center><font size=12 color="black" family="Daytona"><b>Duy Nguyen</b></font></center>
+title: <center><font size=12 color="Green" family="Courier"><b>Duy Nguyen</b></font></center>
 output: html_document
 ---
 ```{r face, include=FALSE, echo=FALSE, warning=FALSE, message=FALSE}
