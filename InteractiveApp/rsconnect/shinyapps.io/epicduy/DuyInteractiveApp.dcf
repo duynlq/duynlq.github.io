@@ -5,9 +5,9 @@ account: epicduy
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 5901559
-bundleId: 5709925
+bundleId: 5710638
 url: https://epicduy.shinyapps.io/DuyInteractiveApp/
-when: 1647886406.57366
-lastSyncTime: 1647886406.57366
+when: 1647897877.73139
+lastSyncTime: 1647897877.73139
 asMultiple: FALSE
 asStatic: FALSE

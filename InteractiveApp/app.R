@@ -19,21 +19,14 @@ ui <- fluidPage(
                                   ".csv")),
              #tags$hr(),
              #tags$hr(),
-             
-             sliderInput("bins", "Number of Bins", min = 1, max = 50, value = 30),
+             radioButtons("plotType", "Select Plot Type",
+                          choices = c("Histogram", "Boxplot", "Scatterplot", "Density")),
+             checkboxInput("showRegLine", "Show Regression (Scatterplot)", TRUE),
              selectInput("variable", "Select Variable", choices = NULL),
-             selectInput("plot.type", "Select Plot Type",
-                         list(Boxplot = "boxplot", Histogram = "histogram", 
-                              Density = "density", Bar = "bar")
-             ),
-             #checkboxInput("show.points", "Show Points", TRUE)
-             #wellPanel(
-             #radioButtons("type", "Select Plot Type",
-             #choices = c("Histogram", "Boxplot")),
-             #downloadButton("download", "Save Plot")
+             sliderInput("bins", "Number of Bins", min = 1, max = 50, value = 30)
            )
     ),
-    column(8, plotOutput("distPlot"))
+    column(8, plotOutput("plot"))
   )
 )
 
@@ -63,23 +56,27 @@ server <- function(input, output,session) {
   })
   
   # plot histogram
-  output$distPlot <- renderPlot({
-    req(!is.null(input$variable))
+  output$plot <- renderPlot({
+    #req(!is.null(input$variable))
     
-    x = input$variable
-    # bins = seq(1, max(input$variable), length.out = input$bins + 1)
-    # 
-    # hist(x, breaks = bins, col = "#75AADB", border = "white",
-    #      #xlab = "Waiting time to next eruption (in mins)",
-    #      main = "Histogram")
-    
-    ggplot(data()) +
-      aes_string(x = input$variable) +
-      geom_histogram(bins = input$bins) #+
-    #geom_col()
-    #scale_x_continuous(breaks = seq(min(input$variable), max(input$variable),1), lim = c(min(input$variable), max(input$variable)))
-    #geom_bar() +
-    #scale_x_binned(n.breaks = input$bins)
+    if( input$plotType == "Histogram"){
+      ggplot(data()) + aes_string(x = input$variable) +
+        geom_histogram(bins = input$bins)
+    } else if( input$plotType == "Boxplot") {
+      ggplot(data()) + aes_string(x = input$variable) +
+        geom_boxplot(outlier.color = "red", outlier.shape = 1)
+    } else if( input$plotType == "Scatterplot") {
+      p1 = ggplot(data(), aes(IBU, ABV)) + geom_point()
+      coefs = lm(ABV~IBU, data = data())$coefficients
+      p2 = {if( input$showRegLine)
+        p1 + geom_smooth(method = "lm", color = "red")
+        else p1}
+      print(p2)
+    } else if( input$plotType == "Density") {
+      ggplot(data()) + aes_string(x = input$variable) +
+        geom_density(alpha=0.8)
+        #geom_density(aes(fill=factor(cyl)), alpha=0.8)
+    }
   })
   
   # save histogram using downloadHandler and plot output type

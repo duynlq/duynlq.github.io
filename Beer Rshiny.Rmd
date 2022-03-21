@@ -15,6 +15,10 @@ library(ggplot2)
 ```
 
 ```{r echo = FALSE}
+library(shiny)
+library(tidyverse)
+library(ggplot2)
+
 ui <- fluidPage(
   tags$head(
     tags$style(HTML('.shiny-split-layout>div {overflow: hidden;}')),
@@ -26,27 +30,20 @@ ui <- fluidPage(
            wellPanel(
              # Input: Select a file ----
              fileInput("file", "Import Your CSV",
-                        multiple = TRUE,
-                        accept = c("text/csv",
-                                   "text/comma-separated-values,text/plain",
-                                   ".csv")),
+                       multiple = TRUE,
+                       accept = c("text/csv",
+                                  "text/comma-separated-values,text/plain",
+                                  ".csv")),
              #tags$hr(),
              #tags$hr(),
-             
-             sliderInput("bins", "Number of Bins", min = 1, max = 50, value = 30),
+             radioButtons("plotType", "Select Plot Type",
+                          choices = c("Histogram", "Boxplot", "Scatterplot", "Pie Chart")),
+             checkboxInput("showRegLine", "Show Regression (Scatterplot)", TRUE),
              selectInput("variable", "Select Variable", choices = NULL),
-             selectInput("plot.type", "Select Plot Type",
-                         list(Boxplot = "boxplot", Histogram = "histogram", 
-                              Density = "density", Bar = "bar")
-           ),
-           #checkboxInput("show.points", "Show Points", TRUE)
-           #wellPanel(
-             #radioButtons("type", "Select Plot Type",
-                          #choices = c("Histogram", "Boxplot")),
-             #downloadButton("download", "Save Plot")
+             sliderInput("bins", "Number of Bins", min = 1, max = 50, value = 30)
            )
     ),
-    column(8, plotOutput("distPlot"))
+    column(8, plotOutput("plot"))
   )
 )
 
@@ -76,23 +73,61 @@ server <- function(input, output,session) {
   })
   
   # plot histogram
-  output$distPlot <- renderPlot({
+  output$plot <- renderPlot({
     req(!is.null(input$variable))
-    
-    x = input$variable
-    # bins = seq(1, max(input$variable), length.out = input$bins + 1)
-    # 
-    # hist(x, breaks = bins, col = "#75AADB", border = "white",
-    #      #xlab = "Waiting time to next eruption (in mins)",
-    #      main = "Histogram")
-    
-    ggplot(data()) +
-      aes_string(x = input$variable) +
-      geom_histogram(bins = input$bins) #+
-      #geom_col()
-      #scale_x_continuous(breaks = seq(min(input$variable), max(input$variable),1), lim = c(min(input$variable), max(input$variable)))
-      #geom_bar() +
-      #scale_x_binned(n.breaks = input$bins)
+
+    if( input$plotType == "Histogram"){
+      ggplot(data()) + aes_string(x = input$variable) +
+        geom_histogram(bins = input$bins)
+    } else if( input$plotType == "Boxplot") {
+      ggplot(data()) + aes_string(x = input$variable) +
+        geom_boxplot(outlier.color = "red", outlier.shape = 1)
+    } else if( input$plotType == "Scatterplot") {
+      p1 = ggplot(data(), aes(IBU, ABV)) + geom_point()
+      coefs = lm(ABV~IBU, data = data())$coefficients
+      p2 = {if( input$showRegLine)
+        p1 + geom_smooth(method = "lm", color = "red")
+        else p1}
+      print(p2)
+    } else if( input$plotType == "Pie Chart") {
+#########################################################      
+      topbeers = data() %>% count(Style, sort = TRUE)
+#str(topbeers)
+
+# Finding the sum of the rest of the beer styles
+num_other_beer_styles = 0
+for (i in 11:nrow(topbeers))
+{
+  #myprint = paste(topbeers$Style[i])
+  #print(myprint)
+  num_other_beer_styles = num_other_beer_styles + topbeers$n[i]
+}
+#num_other_beer_styles
+
+# Make and append a new row that contains the other beer styles
+top10beers = head(topbeers, 10)
+top10beers[11] = c("Other Beer Styles", num_other_beer_styles)
+# Fix the n row into numeric again
+top10beers$n = as.numeric(top10beers$n)
+#top10beers
+#str(top10beers)
+
+# Variable to store the colors of the corresponding top 10 beer styles
+mypallete = c("#C44D00", "#E9AF01", "#772725", "#DFAE01", "#C8881A", 
+              "#F8B506", "#480F08", "#312223", "#CB8226", "#E9B801", "#FFE82A")
+
+# Calculate the beer style percentages
+percentages = (top10beers[[2]] / sum(top10beers[[2]])) * 100
+top10_percentages_rounded = round(percentages, digits = 0)
+top10_names_and_percentages = paste(top10beers[[1]], top10_percentages_rounded)
+top10_names_and_percentages = paste(top10_names_and_percentages, "%", sep = "")
+
+# Plot a pie chart of the top 10 beer styles with percentages
+pie(top10beers$n, top10_names_and_percentages, 
+    col = mypallete, border = "white",
+    main="Beer Styles Pie Chart")
+#########################################################      
+    }
   })
   
   # save histogram using downloadHandler and plot output type
