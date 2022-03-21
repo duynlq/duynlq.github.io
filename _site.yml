@@ -1,6 +1,6 @@
 name: "duy-portfolio"
 navbar:
-  title: "Duy Nguyen's Data Science Portfolio"
+  title: "Duy Nguyen's Portfolio"
   left:
     - text: "Home"
       href: index.html
