@@ -2,7 +2,7 @@ name: "duy-portfolio"
 navbar:
   title: "Duy Nguyen's Portfolio"
   left:
-    - text: "Home"
+    - text: ""
       href: index.html
     - text: "Beers and Breweries"
       href: Beers-Breweries-EDA.html
