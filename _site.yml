@@ -6,5 +6,3 @@ navbar:
       href: index.html
     - text: "Beers and Breweries"
       href: Beers-Breweries-EDA.html
-    - text: "Plots Interactive App"
-      href: https://epicduy.shinyapps.io/DuyInteractiveApp/
