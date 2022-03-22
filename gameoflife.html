@@ -10,15 +10,16 @@
 <!--   <script src="libraries/p5.js"></script>
   <script src="sketch.js"></script> -->
 
-  <script src="libraries/miq-min.js"></script>
-  <script src="libraries/mclass-min.js"></script>
-  <script src="gameoflife.js"></script>
+  <script src="gameoflife_files/libraries/miq-min.js"></script>
+  <script src="gameoflife_files/libraries/mclass-min.js"></script>
+  <script src="gameoflife_files/gameoflife.js"></script>
 
 </head>
 
 <body>
   
 	<div class="header">
+	  <p><img src="Beers-Breweries-EDA_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
 		<h1>John Conway's</h1>
 		<h2>Game of Life</h2>
 	</div>
@@ -33,11 +34,11 @@
     			<label for="playpause" ></label>
  			</div>    	
 
-            <img src="graphics/odometer.png" alt="" width="20" height="20">
+            <img src="gameoflife_files/figure-html/odometer.png" alt="" width="20" height="20">
             <input id="speed" type="range" min="1" max="500" step="49" value="401" title="speed dial">
-            <img src="graphics/zoom-in.png" alt="" width="20" height="20">
+            <img src="gameoflife_files/figure-html/zoom-in.png" alt="" width="20" height="20">
             <input id="size" type="range" min="1" max="11" value="6" title="grid size">
-            <img src="graphics/zoom-out.png" alt="" width="20" height="20">     
+            <img src="gameoflife_files/figure-html/zoom-out.png" alt="" width="20" height="20">     
             <label id="generation">0</label>
             <input id="next" type="button" value="Next">
         </form>
