@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Conway's Game of Life</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <meta charset="utf-8">
+
+<!--   <script src="libraries/p5.js"></script>
+  <script src="sketch.js"></script> -->
+
+  <script src="libraries/miq-min.js"></script>
+  <script src="libraries/mclass-min.js"></script>
+  <script src="gameoflife.js"></script>
+
+</head>
+
+<body>
+  
+	<div class="header">
+		<h1>John Conway's</h1>
+		<h2>Game of Life</h2>
+	</div>
+
+	<div class="body">
+	<h3>The Simulation</h3>
+
+    <div id="canvas-container">
+    	<form>
+  			<div class="playpause">
+    			<input type="checkbox" id="playpause"/>
+    			<label for="playpause" ></label>
+ 			</div>    	
+
+            <img src="graphics/odometer.png" alt="" width="20" height="20">
+            <input id="speed" type="range" min="1" max="500" step="49" value="401" title="speed dial">
+            <img src="graphics/zoom-in.png" alt="" width="20" height="20">
+            <input id="size" type="range" min="1" max="11" value="6" title="grid size">
+            <img src="graphics/zoom-out.png" alt="" width="20" height="20">     
+            <label id="generation">0</label>
+            <input id="next" type="button" value="Next">
+        </form>
+        <div id="canvas-div"></div>
+        <select id="shapes"></select>
+
+    </div>
+
+    <h3>The Rules</h3>
+
+    <dl>
+    	<dt><b>For a space that is "populated":</b>
+    	<dd>Each cell with one or no neighors dies,
+    	<dd>Each cell with four or more neighbors dies,
+    	<dd>Each cell with two or three neighbors lives.
+    	<dt><b>For a space that is "empty" or "unpopulated"</b>
+    	<dd>Each cell with three neighbors becomes populated.
+    </dl>
+
+</body>
+
+</html>
