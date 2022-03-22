@@ -21,7 +21,7 @@
   width: 0;
   height: 74px;
   border-color: transparent transparent transparent #202020;
-  transition: 10ms all ease;
+  transition: 100ms all ease;
   cursor: pointer;
   border-style: double;
   border-width: 0px 0 0px 60px;
@@ -35,8 +35,7 @@
   border-width: 37px 0 37px 60px;
 }
 .playpause input[type=checkbox]:focus + label {
-  border-style: double;
-  box-shadow: 0 0 60px white;
+  box-shadow: 0 0 5px white;
 }
 
 .header
@@ -50,6 +49,10 @@ h2
 {
   font-size: 50px;
 }
+
+#rangeSize{
+    transform: rotateY(180deg);
+}
 </style>
 
 </head>
@@ -57,12 +60,11 @@ h2
 <body>
   
 	<div class="header">
-		<h1>John Conway's</h1>
-		<h2>Game of Life</h2>
+		<h1>John Conway's<br>Game of Life</h1>
 	</div>
 
 	<div class="body">
-	<h2>Play The Simulation!</h2>
+	<h3>Play The Simulation!</h3>
 
     <div id="canvas-container">
     	<form>
@@ -71,11 +73,14 @@ h2
     			<label for="playpause" ></label>
  			</div>    	
 
-            <img src="gameoflife_files/figure-html/odometer.png" alt="" width="25" height="25">
-            <input id="speed" type="range" min="0" max="500" step="49" value="401" title="speed dial">
+            <img src="gameoflife_files/figure-html/slow.png" alt="" width="35" height="25">
+            <input id="speed" type="range" min="0" max="520" step="49" value="225" title="speed dial">
+            <img src="gameoflife_files/figure-html/fast.png" alt="" width="25" height="25">
+            <br>
+            <img src="gameoflife_files/figure-html/zoom-out.png" alt="" width="25" height="25"> 
+            <input id="size" type="range" min="1" max="13" value="7" title="grid size">
             <img src="gameoflife_files/figure-html/zoom-in.png" alt="" width="25" height="25">
-            <input id="size" type="range" min="1" max="11" value="6" title="grid size">
-            <img src="gameoflife_files/figure-html/zoom-out.png" alt="" width="25" height="25">     
+            <br>
             <input id="next" type="button" value="Next" text-align="right">
             <label id="generation" text-align="right">0</label>
         </form>
@@ -84,7 +89,7 @@ h2
 
     </div>
 
-    <h2>The Rules</h2>
+    <h3>The Rules</h3>
 
     <dl>
     	<dt><b>For a space that is "populated":</b>
