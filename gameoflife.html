@@ -31,11 +31,11 @@
   left: -9999px;
 }
 .playpause input[type=checkbox]:checked + label {
-  border-style: solid;
-  border-width: 37px 0 37px 60px;
+  box-shadow: 0 0 5px white;
 }
 .playpause input[type=checkbox]:focus + label {
-  box-shadow: 0 0 5px white;
+  border-style: solid;
+  border-width: 37px 0 37px 60px;
 }
 
 .header
@@ -61,7 +61,7 @@ h2
 	</div>
 
 	<div class="body">
-	<h2>The Simulation</h2>
+	<h2>Play The Simulation!</h2>
 
     <div id="canvas-container">
     	<form>
@@ -72,12 +72,11 @@ h2
 
             <img src="gameoflife_files/figure-html/odometer.png" alt="" width="25" height="25">
             <input id="speed" type="range" min="0" max="500" step="49" value="401" title="speed dial">
-            <br>
             <img src="gameoflife_files/figure-html/zoom-in.png" alt="" width="25" height="25">
             <input id="size" type="range" min="1" max="11" value="6" title="grid size">
             <img src="gameoflife_files/figure-html/zoom-out.png" alt="" width="25" height="25">     
-            <input id="next" type="button" value="Next" align="right">
-            <label id="generation" align="right">0</label>
+            <input id="next" type="button" value="Next" text-align="right">
+            <label id="generation" text-align="right">0</label>
         </form>
         <div id="canvas-div"></div>
         <select id="shapes"></select>
