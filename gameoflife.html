@@ -10,14 +10,84 @@
 <!--   <script src="libraries/p5.js"></script>
   <script src="sketch.js"></script> -->
 
-  <script src="libraries/miq-min.js"></script>
-  <script src="libraries/mclass-min.js"></script>
-  <script src="gameoflife.js"></script>
+  <script src="gameoflife_files/libraries/miq-min.js"></script>
+  <script src="gameoflife_files/libraries/mclass-min.js"></script>
+  <script src="gameoflife_files/gameoflife.js"></script>
+  
+<style>
+.playpause label {
+  display: block;
+  box-sizing: border-box;
+  width: 0;
+  height: 74px;
+  border-color: transparent transparent transparent #202020;
+  transition: 100ms all ease;
+  cursor: pointer;
+  border-style: double;
+  border-width: 0px 0 0px 60px;
+}
+.playpause input[type=checkbox] {
+  position: absolute;
+  left: -9999px;
+}
+.playpause input[type=checkbox]:checked + label {
+  border-style: solid;
+  border-width: 37px 0 37px 60px;
+}
+.playpause input[type=checkbox]:focus + label {
+  box-shadow: 0 0 5px white;
+}
+
+.header
+{
+
+/*  text-align: center;*/
+  font-family: 'Dancing Script', cursive;
+}
+
+h2
+{
+  font-size: 50px;
+}
+</style>
 
 </head>
 
 <body>
   
+<div class="container-fluid main-container">
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Duy Nguyen's Portfolio</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="Beers-Breweries-EDA.html">Beers & Breweries</a>
+</li>
+<li>
+  <a href="gameoflife.html">Game of Life</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+  <img src="gameoflife_files/figure-html/header2.png" width="260" style="display: block; margin: auto;" />
 	<div class="header">
 		<h1>John Conway's</h1>
 		<h2>Game of Life</h2>
@@ -33,11 +103,11 @@
     			<label for="playpause" ></label>
  			</div>    	
 
-            <img src="graphics/odometer.png" alt="" width="20" height="20">
+            <img src="gameoflife_files/figure-html/odometer.png" alt="" width="20" height="20">
             <input id="speed" type="range" min="1" max="500" step="49" value="401" title="speed dial">
-            <img src="graphics/zoom-in.png" alt="" width="20" height="20">
+            <img src="gameoflife_files/figure-html/zoom-in.png" alt="" width="20" height="20">
             <input id="size" type="range" min="1" max="11" value="6" title="grid size">
-            <img src="graphics/zoom-out.png" alt="" width="20" height="20">     
+            <img src="gameoflife_files/figure-html/zoom-out.png" alt="" width="20" height="20">     
             <label id="generation">0</label>
             <input id="next" type="button" value="Next">
         </form>
