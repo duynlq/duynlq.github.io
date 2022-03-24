@@ -2,8 +2,9 @@ library(shiny)
 library(tidyverse)
 library(ggplot2)
 library(ggpmisc)
+library(shinythemes)
 
-ui <- fluidPage(
+ui <- fluidPage( theme = shinytheme("yeti"),
   sidebarLayout(
     sidebarPanel(
       conditionalPanel(condition = "input.tabs == 'Plot'",
