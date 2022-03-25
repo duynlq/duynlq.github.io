@@ -1,4 +1,5 @@
 library(shiny)
+library(tidyverse)
 library(ggplot2)
 library(gridExtra)
 library(ggpmisc)
@@ -18,7 +19,7 @@ ui <- fluidPage(
                   tabPanel("Datasets",
                            fluidRow(
                              plotOutput("myPlot"),
-                             hr(),
+                             #hr(),
                              DT::dataTableOutput("myTable")
                            )
                   )
@@ -91,7 +92,8 @@ server <- function(input, output) {
     p3 = ggplot(get(input$myData), aes_string(x = get(input[["explanatory"]]))) +
       labs(x = input[["explanatory"]], y = "Density") +
       theme_bw(base_size = 16) +
-      geom_histogram(aes(x = get(input[["explanatory"]]), y = ..density..), color = "black", fill = "white", bins = input$bins)
+      geom_histogram(aes(x = get(input[["explanatory"]]), y = ..density..), 
+                     color = "black", fill = "white", bins = input$bins)
     p4 = {if( input$showDensity)
       p3 + geom_density(alpha = .2, color = "red", fill = "pink")
       else p3}
