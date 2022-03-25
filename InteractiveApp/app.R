@@ -1,138 +1,117 @@
 library(shiny)
-library(tidyverse)
 library(ggplot2)
+library(gridExtra)
 library(ggpmisc)
 library(shinythemes)
 
-ui <- fluidPage( 
+ui <- fluidPage(
   theme = shinytheme("yeti"),
   sidebarLayout(
     sidebarPanel(
-      #selectInput("myData", "Choose From My Datasets: (under dev)",
-      #            choices = c("Iris"="iris", "mt" = "cars", "tree" = "trees")),
-      fileInput("file", "Or Upload Your Own CSV!", multiple = TRUE,
-                accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv")),
-      conditionalPanel(condition = "input.tabs == 'Plot'",
-
-                       selectInput("explanatory", "Select Explanatory (X)", choices = NULL),
-                       
-                       radioButtons("plotType", "Select Plot Type",
-                                    choices = c("Scatterplot", "Histogram", "Boxplot")),
-                       conditionalPanel(condition = "input.plotType == 'Histogram'",
-                                        sliderInput("bins", "Adjust Bins", min = 1, max = 50, value = 30),
-                                        checkboxInput("showDensity", "Show Density Plot", TRUE)),
-                       conditionalPanel(condition = "input.plotType == 'Scatterplot'",
-                                        selectInput("response", "Select Response (Y)", choices = NULL),
-                                        checkboxInput("showRegLine", "Show Regression Line", TRUE))
-      ),
-      conditionalPanel(condition = "input.tabs =='Table'"
-                       #,
-                       #checkboxInput("removeNA", "Remove NAs", TRUE)
-      )
+      selectInput("myData", "Choose Dataset",
+                  c("iris", "mtcars", "ToothGrowth", "PlantGrowth", "USArrests")),
+      uiOutput("datasets")
+      
     ),
     mainPanel(
-      tabsetPanel(id="tabs",
-                  tabPanel("Plot",
-                           plotOutput("plot")),
-                  tabPanel("Table",
-                           tableOutput("table")),
+      tabsetPanel(id = 'tab',
+                  tabPanel("Datasets",
+                           fluidRow(
+                             plotOutput("myPlot"),
+                             hr(),
+                             DT::dataTableOutput("myTable")
+                           )
+                  )
+                  
       )
     )
   )
 )
 
-iris = data(iris)
-pressure = data(pressure)
-mtcars = data(mtcars)
-
-server <- function(input, output,session) {
-################################################################################
-  data <- reactive({
-    req(input$file)
+server <- function(input, output) {
+  
+  # Extracting column names from datasets
+  columns <- reactive({
+    switch(input$myData,
+           "iris" = names(iris), 
+           "mtcars" = names(mtcars),
+           "ToothGrowth" = names(ToothGrowth),
+           "PlantGrowth" = names(PlantGrowth),
+           "USArrests" = names(USArrests),
+    )
     
-    
-    # get data from file
-    ext <- tools::file_ext(input$file$name)
-    validate(need(ext == "csv", "Invalid file. Please upload a .csv file"))
-    
-    dataset <- vroom::vroom(input$file$datapath, delim = ",")
-    
-    # let the user know if the data contains no numeric column
-    validate(need(ncol(dplyr::select_if(dataset, is.numeric)) != 0,
-                  "This dataset has no numeric columns!"))
-    dataset
-  })
-################################################################################
-  output$table <- renderTable({
-    data()
   })
   
-  # create the select input based on the numeric columns in the dataframe
-  observeEvent( input$file, {
-    req(data())
-    num_cols <- dplyr::select_if(data(), is.numeric)
-    updateSelectInput(session, "explanatory", choices = colnames(num_cols))
-  })
-  observeEvent( input$file, {
-    req(data())
-    num_cols <- dplyr::select_if(data(), is.numeric)
-    updateSelectInput(session, "response", choices = colnames(num_cols))
-  })
-  
-  # plot histogram
-  output$plot <- renderPlot({
-    req(!is.null(input$explanatory))
+  output[["datasets"]] <- renderUI({
+    conditionalPanel(condition = "input.tab == 'Datasets'",
+                     hr(),
+                     HTML(paste0("<b>","Scatterplot","</b>")),
+                     selectInput("explanatory", "Select Explanatory Variable (X)",choices = columns()),
+                     selectInput("response", "Select Response Variable (Y)",choices = columns()),
+                     checkboxInput("showRegLine", "Show Regression Line", TRUE),
+                     hr(),
+                     HTML(paste0("<b>","Histogram","</b>")),
+                     sliderInput("bins", "Adjust Bins", min = 1, max = 50, value = 30),
+                     checkboxInput("showDensity", "Show Density Curve", TRUE),
+                     hr(),
+                     HTML(paste0("<b>","Table","</b>")),
+                     checkboxGroupInput("show_vars", "Show Columns",
+                                        columns(), selected = columns())
+    )
     
-    if( input$plotType == "Histogram"){
-
-      p1 = ggplot(data(), aes_string(x = input$explanatory)) +
-        theme_bw(base_size = 16) +
-        geom_histogram(aes(y = ..density..), color = "black", fill = "white", bins = input$bins)
-      p2 = {if( input$showDensity)
-        p1 + geom_density(alpha = .2, fill = "#FF6666")
-        else p1}
-      print(p2)
-      
-    } else if( input$plotType == "Boxplot") {
-      
-      ggplot(data()) + aes_string(x = input$explanatory) +
-        theme_bw(base_size = 16) +
-        geom_boxplot(outlier.color = "red", outlier.shape = 1, fill = "yellow")
-      
-    } else if( input$plotType == "Scatterplot") {
-      
-      myFormula = y ~ x
-      p1 = ggplot(data(), aes_string(x = input$explanatory, y = input$response)) + 
-        geom_point() +
-        theme_bw(base_size = 16)
-      p2 = {if( input$showRegLine)
-        p1 + geom_smooth(method = "lm", color = "red", formula = myFormula) +
-          stat_fit_tb(method = "lm",
-                      method.args = list(formula = myFormula),
-                      tb.vars = c(Parameter = "term",
-                                  Estimate = "estimate",
-                                  "StdErr" = "std.error",
-                                  "italic(t)" = "statistic",
-                                  "italic(P)" = "p.value"),
-                      label.y = "bottom", label.x = "right",
-                      parse = TRUE) +
-          stat_poly_eq(aes(label = paste0("atop(", ..eq.label.., ",", ..rr.label.., ")")),
-                       formula = myFormula,
-                       parse = TRUE)
-        else p1}
-      print(p2)
-    }
   })
   
-  # save histogram using downloadHandler and plot output type
-  # output$download <- downloadHandler(
-  #   filename = function() {
-  #     paste("histogram", input$extension, sep = ".")
-  #   },
-  #   content = function(file){
-  #     ggsave(file, plot_output(), device = input$type)
-  #   }
-  # )
+  output$myPlot <- renderPlot({
+    
+    attach(get(input$myData))
+    
+    # Scatterplot
+    myFormula = y ~ x
+    p1 = ggplot(get(input$myData), aes_string(x = get(input[["explanatory"]]), y = get(input[["response"]]))) +
+      geom_point() +
+      labs(x = input[["explanatory"]], y = input[["response"]])
+    theme_bw(base_size = 16)
+    p2 = {if( input$showRegLine)
+      p1 + geom_smooth(method = "lm", color = "red", formula = myFormula) +
+        stat_fit_tb(method = "lm",
+                    method.args = list(formula = myFormula),
+                    tb.vars = c(Parameter = "term",
+                                Estimate = "estimate",
+                                "StdErr" = "std.error",
+                                "italic(t)" = "statistic",
+                                "italic(P)" = "p.value"),
+                    label.y = "bottom", label.x = "right",
+                    parse = TRUE) +
+        stat_poly_eq(aes(label = paste0("atop(", ..eq.label.., ",", ..rr.label.., ")")),
+                     formula = myFormula,
+                     parse = TRUE)
+      else p1}
+    
+    # Histogram
+    p3 = ggplot(get(input$myData), aes_string(x = get(input[["explanatory"]]))) +
+      labs(x = input[["explanatory"]], y = "Density") +
+      theme_bw(base_size = 16) +
+      geom_histogram(aes(x = get(input[["explanatory"]]), y = ..density..), color = "black", fill = "white", bins = input$bins)
+    p4 = {if( input$showDensity)
+      p3 + geom_density(alpha = .2, color = "red", fill = "pink")
+      else p3}
+    
+    # Boxplot
+    p5 = ggplot(get(input$myData)) + aes_string(x = input[["explanatory"]]) +
+      theme_bw(base_size = 16) +
+      geom_boxplot(outlier.color = "red", outlier.shape = 1, fill = "yellow")
+    
+    
+    grid.arrange(arrangeGrob(p2),
+                 arrangeGrob(p4, p5, ncol=1),
+                 ncol=2, widths=c(1,1))
+    
+  })
+  
+  output$myTable <- DT::renderDataTable({
+    DT::datatable(get(input$myData)[, input$show_vars, drop = FALSE], 
+                  options = list(lengthMenu = c(10, 20, 30, 50), pageLength = 10))
+  })
 }
 
 shinyApp(ui, server)
