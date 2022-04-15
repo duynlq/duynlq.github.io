@@ -6,5 +6,7 @@ navbar:
       href: index.html
     - text: "Beers & Breweries"
       href: Beers-Breweries-EDA.html
+    - text: "Employee Attrition"
+      href: Attritrion-Analysis.html
     - text: "Game of Life"
       href: gameoflife.html
