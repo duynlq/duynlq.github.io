@@ -1,10 +1,3 @@
----
-title: "Case Study 2"
-author: "Duy Nguyen"
-date: "4/10/2022"
-output: html_document
----
-
 ## Abstract
 The CEO and CFO of Frito Lay have provided me with a dataset for the statistics 
 of their employees. They have commissioned me to identify the top factors 
@@ -39,8 +32,8 @@ set.seed(760397)
 
 ```
 
-# Import Data
-```{r}
+```{r, echo=FALSE, results='hide'}
+#### Import Data ####
 getwd()
 df = read.csv("CaseStudy2-data.csv")
 df_no_attrition = read.csv("CaseStudy2CompSet-No-Attrition.csv")
@@ -48,23 +41,23 @@ df_no_salary = read.csv("CaseStudy2CompSet-No-Salary.csv")
 ```
 
 # Missing Values
-```{r}
-str(df)
-table(is.na(df))
+```{r, echo=FALSE}
+#str(df)
+#table(is.na(df))
 
 plot_missing(df)
 ```
 
-# Inspect the Attrition column
-```{r}
+```{r, echo=FALSE, results='hide'}
+#### Inspect Attrition ####
 prop.table(table(df$Attrition, useNA = "ifany"))
 
 df_Attrition = data.frame(Attrition = table(df$Attrition, useNA = "ifany"))
 df_Attrition
 ```
 
-# Zero Variance
-```{r}
+```{r, echo=FALSE, results='hide'}
+#### Zero Variance ####
 # Identify the names of zero variance columns
 zero_var_col_names = nearZeroVar(df, names = TRUE)
 zero_var_col_names
@@ -77,8 +70,8 @@ df = df %>% select(-ID, -EmployeeNumber)
 
 ```
 
-# Correlation Plot
-```{r}
+```{r, echo=FALSE, results='hide'}
+#### Prepare Corr Plot ####
 attritionData <- df
 str(attritionData$Attrition)
 
@@ -87,21 +80,25 @@ attritionData$Attrition[attritionData$Attrition == "No"] = 1
 attritionData$Attrition_num <- as.numeric(as.character(attritionData$Attrition))
 
 str(select_if(attritionData, is.numeric))
+```
 
+# Correlation Plot
+```{r, echo=FALSE}
 corrplot(cor(select_if(attritionData, is.numeric)), method = "square", tl.col = 'black')
+```
 
+```{r, echo=FALSE}
+#### Model Formula #####
 model_formula = c("Age", "DailyRate", "Education", "EnvironmentSatisfaction",
                   "JobInvolvement", "JobLevel", "JobSatisfaction", "MonthlyIncome",
                   "MonthlyRate", "RelationshipSatisfaction", "StockOptionLevel",
                   "TotalWorkingYears", "TrainingTimesLastYear", "WorkLifeBalance",
                   "YearsAtCompany", "YearsInCurrentRole", "YearsWithCurrManager")
 
+#We are giving our model the significant variables seen from the plot above.
 ```
 
-We are giving our model the significant variables seen from the plot above.
-
-# Categorical Variables: Visuallizing Correlations to Attrition
-```{r}
+```{r, echo=FALSE, results='hide'}
 # Convert character variables into factors
 df[sapply(df, is.character)] = lapply(df[sapply(df, is.character)], as.factor)
 
@@ -114,10 +111,15 @@ df[df_numeric_cat_vars] = lapply(df[df_numeric_cat_vars], as.factor)
 
 # Sanity check
 str(df)
+```
 
+# Visuallizing Categorical Variables
+```{r, echo=FALSE}
 # Inspect the categorical variables with a cool plot
 show_plot(inspect_cat(df))
+```
 
+```{r, echo=FALSE, results='hide'}
 # Plot function
 cat_vs_cat_plot <- function(df, x,y){
   ggplot(data = df, aes_string(x = x, fill = y)) + 
@@ -135,24 +137,16 @@ categorical_variables = df %>% select(-Attrition) %>% select_if(is.factor) %>% n
 categorical_variables
 ```
 
-# Personal Categorical Metrics
-```{r}
+### Personal Categorical Metrics
+```{r, echo=FALSE}
 personal_cat_plot_list <-lapply(categorical_variables[c(6, 10, 3, 4, 13, 14)],
                              function(x) cat_vs_cat_plot(df, x, "Attrition"))
 ggarrange(plotlist = personal_cat_plot_list, common.legend = TRUE, legend="bottom",
           nrow = 3, ncol = 2)
 ```
-  
-Attrition:
 
-1. Is slighty higher with male employees compared to female employees.
-2. Is the highest for single people, and lowest for divorced people.
-3. Decreases gradually as employees are more educated.
-4. Is lowest amongst employees in the Medical and Life Sciences fields.
-5. Has an extremely negative influence to an employee's work life balance.
-
-# Work Categorical Metrics
-```{r}
+### Work Categorical Metrics
+```{r, echo=FALSE}
 work_cat_plot_list <-lapply(categorical_variables[c(8, 2, 9, 7)],
                              function(x) cat_vs_cat_plot(df, x, "Attrition"))
 ggarrange(plotlist = work_cat_plot_list, common.legend = TRUE, legend="bottom",
@@ -160,13 +154,7 @@ ggarrange(plotlist = work_cat_plot_list, common.legend = TRUE, legend="bottom",
 
 ```
 
-Attrition:
-
-1. Is highest with employees in Sales, and lowest in director/manager roles.
-2. Has an extremely negative influence with an employee's involvement with his/her job,
-and decreases gradually as she/he is more satisfied with their job.
-
-```{r}
+```{r, echo=FALSE}
 work_cat_plot_list <-lapply(categorical_variables[c(1, 5, 11, 12)],
                              function(x) cat_vs_cat_plot(df, x, "Attrition"))
 ggarrange(plotlist = work_cat_plot_list, common.legend = TRUE, legend="bottom",
@@ -174,14 +162,22 @@ ggarrange(plotlist = work_cat_plot_list, common.legend = TRUE, legend="bottom",
 
 ```
 
-Attrition:
+##### Attrition:  
 
-1. Is highest with employees who travels frequently.
-2. Has a highly negative influence with an employee's work environment
-3. Is high in overtime employees as expected.
+1. Is slighty higher with male employees compared to female employees.
+2. Is the highest for single people, and lowest for divorced people.
+3. Decreases gradually as employees are more educated.
+4. Is lowest amongst employees in the Medical and Life Sciences fields.
+5. Has an extremely negative influence to an employee's work life balance.
+6. Is highest with employees in Sales, and lowest in director/manager roles.
+7. Has an extremely negative influence with an employee's involvement with his/her job,
+and decreases gradually as she/he is more satisfied with their job.
+8. Is highest with employees who travels frequently.
+9. Has a highly negative influence with an employee's work environment
+10. Is high in overtime employees as expected.
 
-# Numeric Variables: Visuallizing Correlations to Attrition 
-```{r}
+# Visuallizing Numeric Variables
+```{r, echo=FALSE, results='hide'}
 numerical_variables_names = df %>% select_if(is.numeric) %>% names()
 numerical_variables_names
 
@@ -267,48 +263,44 @@ p16 <- df %>% ggplot(aes(x = YearsWithCurrManager, fill = Attrition)) +
 
 ```
 
-# Personal Numerical Metrics
-```{r}
+### Personal Numerical Metrics
+```{r, echo=FALSE}
 ggarrange(p1, p3, p8, p11, nrow = 2, ncol = 2,
           common.legend = TRUE, legend="bottom")
 
 ```
 
-Attrition:
-
-1. Is less likely with employees who has worked in more companies.
-2. Is the lowest in employees who are closer to work, and reasonably higher with employees who are farther.
-3. Is much likely with employees who have around 10 years of experience.
-
-# Compensation Numerical Metrics
-```{r}
+### Compensation Numerical Metrics
+```{r, echo=FALSE}
 ggarrange(p2, p4, p6, p7, p9, p10, nrow = 3, ncol = 2,
           common.legend = TRUE, legend="bottom")
 
 ```
 
-Attrition:
-
-1. Is extremely influential to a monthly income of around $2500.
-2. Is extremely unlikely amongst employees with stock options.
-
-# Work Numerical Metrics
-```{r}
+### Work Numerical Metrics
+```{r, echo=FALSE}
 ggarrange(p5, p12, p13, p14, p15, p16, nrow = 3, ncol = 2,
           common.legend = TRUE, legend="bottom")
 
 ```
 
-Attrition:
+##### Attrition:  
 
-1. Is extremely likely with 1st level employees, and gradually decreases as job level increases.
-2. Is highest with employees of around 1 or 2 years in the company, as well as in their current role.
-3. Has a noticeable gap between yes and no for all training times last year except for 4 times.
+1. Is less likely with employees who has worked in more companies.
+2. Is the lowest in employees who are closer to work, and reasonably higher with employees who are farther.
+3. Is much likely with employees who have around 10 years of experience.
+4. Is extremely influential to a monthly income of around $2500.
+5. Is extremely unlikely amongst employees with stock options.
+6. Is extremely likely with 1st level employees
+7. Gradually decreases as job level increases.
+8. Is highest with employees of around 1 or 2 years in the company, as well as in their current role.
+9. Has a noticeable gap between yes and no for all training times last year except for 4 times.
 
-# Split The Data
-70% of our data is used for training the model,
-and 30% is for testing the model and validate actual values vs predicted values.
-```{r}
+```{r, echo=FALSE, results='hide'}
+#### Split The Data
+# 70% of our data is used for training the model,
+# and 30% is for testing the model and validate actual values vs predicted values.
+
 # Convert character variables into categorical variables
 df = mutate_if(df, is.character, as.factor)
 
@@ -321,10 +313,13 @@ test = df[-train_indices,]
 
 ```
 
-# Predicting Attrition: KNN versus Naive Bayes
-```{r}
+# Predicting Attrition
+```{r, echo=FALSE, results='hide'}
 dim(train)
-# k-Nearest Neightbors (k-NN)
+```
+
+### k-Nearest Neightbors (k-NN)
+```{r, echo=FALSE}
 train_control = trainControl(method = "repeatedcv", number = 10, repeats = 3)
 KNN_model = train(train[,model_formula],
                   as.factor(train$Attrition),
@@ -337,8 +332,10 @@ KNN_CM = confusionMatrix(table(predict(KNN_model, train[,model_formula]),
 KNN_CM$overall["Accuracy"]
 KNN_CM$byClass["Sensitivity"]
 KNN_CM$byClass["Specificity"]
+```
 
-# Naive Bayes
+### Naive Bayes
+```{r, echo=FALSE}
 naiveBayes_model = naiveBayes(train[,model_formula],
                               as.factor(train$Attrition),
                               laplace = 1)
@@ -359,6 +356,7 @@ colnames(myout) <- c("ID", "Attrition")
 write.csv(myout, file ="Case2PredictionsNguyen Attrition.csv", row.names = FALSE)
 ```
 
+##### Analysis
 Our Naive Bayes model represents the original data with 93.92% accuracy, 
 95.30% sensitivity, and 86.73% specificity, 
 which is greater than the desired minimum of 60% sensitivity and specificity. 
@@ -384,19 +382,22 @@ It contains the following variables:
 16. YearsInCurrentRole  
 17. YearsWithCurrManager  
 
-# Predicting MonthlyIncome: Linear Regression
-```{r}
+# Predicting MonthlyIncome
+```{r, echo=FALSE}
 train_indices = createDataPartition(attritionData$Attrition, p = 0.7, list = FALSE)
 
 train = attritionData[train_indices,]
 test = attritionData[-train_indices,]
+```
 
-# Linear Regression
+### Linear Regression
+```{r, echo=FALSE}
 fit = lm(formula = MonthlyIncome ~ Age + Education + JobLevel + MonthlyRate +
                    NumCompaniesWorked + TotalWorkingYears + YearsAtCompany +
                    YearsInCurrentRole + YearsSinceLastPromotion +
                    YearsWithCurrManager, data = train)
-summary(fit)
+summary(fit)$r.squared
+
 predictions = predict(fit, test)
 RMSE(test$MonthlyIncome, predictions)
 
@@ -406,8 +407,10 @@ colnames(myout) = c("ID","MonthlyIncome")
 write.csv(myout, file ="Case2PredictionsNguyen Salary.csv", row.names = FALSE)
 ```
 
-Our linear regression model is 91.15% effective at representing the original data,
-with a prediction error of $1432.709 which is below our desired maximum of $3000.
+##### Analysis
+Our linear regression model is 91.15% effective at representing the original data.
+
+We achieved a prediction error of $1432.709 which is below our desired maximum of $3000.
 
 We believe this model is among the best at classifying employee attrition at Fritolay.  
 
