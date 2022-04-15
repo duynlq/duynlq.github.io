@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Duy Nguyen" />
+
+
+<title>Case Study 2</title>
+
+<script src="site_libs/header-attrs-2.13.2/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Duy Nguyen's Portfolio</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="Beers-Breweries-EDA.html">Beers &amp; Breweries</a>
+</li>
+<li>
+  <a href="Attritrion-Analysis.html">Employee Attrition</a>
+</li>
+<li>
+  <a href="gameoflife.html">Game of Life</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Case Study 2</h1>
+<h4 class="author">Duy Nguyen</h4>
+<h4 class="date">4/10/2022</h4>
+
+</div>
+
+
+<div id="abstract" class="section level2">
+<h2>Abstract</h2>
+<p>The CEO and CFO of Frito Lay have provided me with a dataset for the statistics of their employees. They have commissioned me to identify the top factors that lead to employee attrition and evidence provided by analysis to back them up. They are also interested in trends within the dataset, as well as machine learning models to predict attrition and monthly income of their employees.</p>
+<p>Things we have found include but are not limited to:</p>
+<ul>
+<li>Numerical and categorical correlations within the dataset</li>
+<li>Top factors that negatively influence attrition</li>
+<li>Top factors that negatively influence monthly income</li>
+</ul>
+<p>To close off the analysis, I will provide 2 models that I believe rank amongst the best when predicting employee attitrion and mothnly income that anyone can use for their organizations.</p>
+<p>Click here for presentation!</p>
+</div>
+<div id="import-data" class="section level1">
+<h1>Import Data</h1>
+<pre class="r"><code>getwd()</code></pre>
+<pre><code>## [1] &quot;C:/Users/dnguy/Desktop/0 SMU/Portfolio&quot;</code></pre>
+<pre class="r"><code>df = read.csv(&quot;CaseStudy2-data.csv&quot;)
+df_no_attrition = read.csv(&quot;CaseStudy2CompSet-No-Attrition.csv&quot;)
+df_no_salary = read.csv(&quot;CaseStudy2CompSet-No-Salary.csv&quot;)</code></pre>
+</div>
+<div id="missing-values" class="section level1">
+<h1>Missing Values</h1>
+<pre class="r"><code>str(df)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    870 obs. of  36 variables:
+##  $ ID                      : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ Age                     : int  32 40 35 32 24 27 41 37 34 34 ...
+##  $ Attrition               : chr  &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;No&quot; ...
+##  $ BusinessTravel          : chr  &quot;Travel_Rarely&quot; &quot;Travel_Rarely&quot; &quot;Travel_Frequently&quot; &quot;Travel_Rarely&quot; ...
+##  $ DailyRate               : int  117 1308 200 801 567 294 1283 309 1333 653 ...
+##  $ Department              : chr  &quot;Sales&quot; &quot;Research &amp; Development&quot; &quot;Research &amp; Development&quot; &quot;Sales&quot; ...
+##  $ DistanceFromHome        : int  13 14 18 1 2 10 5 10 10 10 ...
+##  $ Education               : int  4 3 2 4 1 2 5 4 4 4 ...
+##  $ EducationField          : chr  &quot;Life Sciences&quot; &quot;Medical&quot; &quot;Life Sciences&quot; &quot;Marketing&quot; ...
+##  $ EmployeeCount           : int  1 1 1 1 1 1 1 1 1 1 ...
+##  $ EmployeeNumber          : int  859 1128 1412 2016 1646 733 1448 1105 1055 1597 ...
+##  $ EnvironmentSatisfaction : int  2 3 3 3 1 4 2 4 3 4 ...
+##  $ Gender                  : chr  &quot;Male&quot; &quot;Male&quot; &quot;Male&quot; &quot;Female&quot; ...
+##  $ HourlyRate              : int  73 44 60 48 32 32 90 88 87 92 ...
+##  $ JobInvolvement          : int  3 2 3 3 3 3 4 2 3 2 ...
+##  $ JobLevel                : int  2 5 3 3 1 3 1 2 1 2 ...
+##  $ JobRole                 : chr  &quot;Sales Executive&quot; &quot;Research Director&quot; &quot;Manufacturing Director&quot; &quot;Sales Executive&quot; ...
+##  $ JobSatisfaction         : int  4 3 4 4 4 1 3 4 3 3 ...
+##  $ MaritalStatus           : chr  &quot;Divorced&quot; &quot;Single&quot; &quot;Single&quot; &quot;Married&quot; ...
+##  $ MonthlyIncome           : int  4403 19626 9362 10422 3760 8793 2127 6694 2220 5063 ...
+##  $ MonthlyRate             : int  9250 17544 19944 24032 17218 4809 5561 24223 18410 15332 ...
+##  $ NumCompaniesWorked      : int  2 1 2 1 1 1 2 2 1 1 ...
+##  $ Over18                  : chr  &quot;Y&quot; &quot;Y&quot; &quot;Y&quot; &quot;Y&quot; ...
+##  $ OverTime                : chr  &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;No&quot; ...
+##  $ PercentSalaryHike       : int  11 14 11 19 13 21 12 14 19 14 ...
+##  $ PerformanceRating       : int  3 3 3 3 3 4 3 3 3 3 ...
+##  $ RelationshipSatisfaction: int  3 1 3 3 3 3 1 3 4 2 ...
+##  $ StandardHours           : int  80 80 80 80 80 80 80 80 80 80 ...
+##  $ StockOptionLevel        : int  1 0 0 2 0 2 0 3 1 1 ...
+##  $ TotalWorkingYears       : int  8 21 10 14 6 9 7 8 1 8 ...
+##  $ TrainingTimesLastYear   : int  3 2 2 3 2 4 5 5 2 3 ...
+##  $ WorkLifeBalance         : int  2 4 3 3 3 2 2 3 3 2 ...
+##  $ YearsAtCompany          : int  5 20 2 14 6 9 4 1 1 8 ...
+##  $ YearsInCurrentRole      : int  2 7 2 10 3 7 2 0 1 2 ...
+##  $ YearsSinceLastPromotion : int  0 4 2 5 1 1 0 0 0 7 ...
+##  $ YearsWithCurrManager    : int  3 9 2 7 3 7 3 0 0 7 ...</code></pre>
+<pre class="r"><code>table(is.na(df))</code></pre>
+<pre><code>## 
+## FALSE 
+## 31320</code></pre>
+<pre class="r"><code>plot_missing(df)</code></pre>
+<p><img src="Attritrion-Analysis_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+</div>
+<div id="inspect-the-attrition-column" class="section level1">
+<h1>Inspect the Attrition column</h1>
+<pre class="r"><code>prop.table(table(df$Attrition, useNA = &quot;ifany&quot;))</code></pre>
+<pre><code>## 
+##        No       Yes 
+## 0.8390805 0.1609195</code></pre>
+<pre class="r"><code>df_Attrition = data.frame(Attrition = table(df$Attrition, useNA = &quot;ifany&quot;))
+df_Attrition</code></pre>
+<pre><code>##   Attrition.Var1 Attrition.Freq
+## 1             No            730
+## 2            Yes            140</code></pre>
+</div>
+<div id="zero-variance" class="section level1">
+<h1>Zero Variance</h1>
+<pre class="r"><code># Identify the names of zero variance columns
+zero_var_col_names = nearZeroVar(df, names = TRUE)
+zero_var_col_names</code></pre>
+<pre><code>## [1] &quot;EmployeeCount&quot; &quot;Over18&quot;        &quot;StandardHours&quot;</code></pre>
+<pre class="r"><code># Remove all zero variance columns
+df = drop_columns(df, zero_var_col_names)
+
+# Remove &quot;identification&quot; columns that are not useful for analysis
+df = df %&gt;% select(-ID, -EmployeeNumber)</code></pre>
+</div>
+<div id="correlation-plot" class="section level1">
+<h1>Correlation Plot</h1>
+<pre class="r"><code>attritionData &lt;- df
+str(attritionData$Attrition)</code></pre>
+<pre><code>##  chr [1:870] &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;No&quot; ...</code></pre>
+<pre class="r"><code>attritionData$Attrition[attritionData$Attrition == &quot;Yes&quot;] = 0
+attritionData$Attrition[attritionData$Attrition == &quot;No&quot;] = 1
+attritionData$Attrition_num &lt;- as.numeric(as.character(attritionData$Attrition))
+
+str(select_if(attritionData, is.numeric))</code></pre>
+<pre><code>## &#39;data.frame&#39;:    870 obs. of  24 variables:
+##  $ Age                     : int  32 40 35 32 24 27 41 37 34 34 ...
+##  $ DailyRate               : int  117 1308 200 801 567 294 1283 309 1333 653 ...
+##  $ DistanceFromHome        : int  13 14 18 1 2 10 5 10 10 10 ...
+##  $ Education               : int  4 3 2 4 1 2 5 4 4 4 ...
+##  $ EnvironmentSatisfaction : int  2 3 3 3 1 4 2 4 3 4 ...
+##  $ HourlyRate              : int  73 44 60 48 32 32 90 88 87 92 ...
+##  $ JobInvolvement          : int  3 2 3 3 3 3 4 2 3 2 ...
+##  $ JobLevel                : int  2 5 3 3 1 3 1 2 1 2 ...
+##  $ JobSatisfaction         : int  4 3 4 4 4 1 3 4 3 3 ...
+##  $ MonthlyIncome           : int  4403 19626 9362 10422 3760 8793 2127 6694 2220 5063 ...
+##  $ MonthlyRate             : int  9250 17544 19944 24032 17218 4809 5561 24223 18410 15332 ...
+##  $ NumCompaniesWorked      : int  2 1 2 1 1 1 2 2 1 1 ...
+##  $ PercentSalaryHike       : int  11 14 11 19 13 21 12 14 19 14 ...
+##  $ PerformanceRating       : int  3 3 3 3 3 4 3 3 3 3 ...
+##  $ RelationshipSatisfaction: int  3 1 3 3 3 3 1 3 4 2 ...
+##  $ StockOptionLevel        : int  1 0 0 2 0 2 0 3 1 1 ...
+##  $ TotalWorkingYears       : int  8 21 10 14 6 9 7 8 1 8 ...
+##  $ TrainingTimesLastYear   : int  3 2 2 3 2 4 5 5 2 3 ...
+##  $ WorkLifeBalance         : int  2 4 3 3 3 2 2 3 3 2 ...
+##  $ YearsAtCompany          : int  5 20 2 14 6 9 4 1 1 8 ...
+##  $ YearsInCurrentRole      : int  2 7 2 10 3 7 2 0 1 2 ...
+##  $ YearsSinceLastPromotion : int  0 4 2 5 1 1 0 0 0 7 ...
+##  $ YearsWithCurrManager    : int  3 9 2 7 3 7 3 0 0 7 ...
+##  $ Attrition_num           : num  1 1 1 1 1 1 1 1 1 1 ...
+##  - attr(*, &quot;.internal.selfref&quot;)=&lt;externalptr&gt;</code></pre>
+<pre class="r"><code>corrplot(cor(select_if(attritionData, is.numeric)), method = &quot;square&quot;, tl.col = &#39;black&#39;)</code></pre>
+<p><img src="Attritrion-Analysis_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre class="r"><code>model_formula = c(&quot;Age&quot;, &quot;DailyRate&quot;, &quot;Education&quot;, &quot;EnvironmentSatisfaction&quot;,
+                  &quot;JobInvolvement&quot;, &quot;JobLevel&quot;, &quot;JobSatisfaction&quot;, &quot;MonthlyIncome&quot;,
+                  &quot;MonthlyRate&quot;, &quot;RelationshipSatisfaction&quot;, &quot;StockOptionLevel&quot;,
+                  &quot;TotalWorkingYears&quot;, &quot;TrainingTimesLastYear&quot;, &quot;WorkLifeBalance&quot;,
+                  &quot;YearsAtCompany&quot;, &quot;YearsInCurrentRole&quot;, &quot;YearsWithCurrManager&quot;)</code></pre>
+<p>We are giving our model the significant variables seen from the plot above.</p>
+</div>
+<div id="categorical-variables-visuallizing-correlations-to-attrition" class="section level1">
+<h1>Categorical Variables: Visuallizing Correlations to Attrition</h1>
+<pre class="r"><code># Convert character variables into factors
+df[sapply(df, is.character)] = lapply(df[sapply(df, is.character)], as.factor)
+
+# Numeric variables with a categorical nature are converted into factors
+df_numeric_cat_vars = df %&gt;% select(Education, EnvironmentSatisfaction, JobInvolvement,
+                                    JobSatisfaction, PerformanceRating, 
+                                    RelationshipSatisfaction,
+                                    WorkLifeBalance) %&gt;% names()
+df[df_numeric_cat_vars] = lapply(df[df_numeric_cat_vars], as.factor)
+
+# Sanity check
+str(df)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    870 obs. of  31 variables:
+##  $ Age                     : int  32 40 35 32 24 27 41 37 34 34 ...
+##  $ Attrition               : Factor w/ 2 levels &quot;No&quot;,&quot;Yes&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ BusinessTravel          : Factor w/ 3 levels &quot;Non-Travel&quot;,&quot;Travel_Frequently&quot;,..: 3 3 2 3 2 2 3 3 3 2 ...
+##  $ DailyRate               : int  117 1308 200 801 567 294 1283 309 1333 653 ...
+##  $ Department              : Factor w/ 3 levels &quot;Human Resources&quot;,..: 3 2 2 3 2 2 2 3 3 2 ...
+##  $ DistanceFromHome        : int  13 14 18 1 2 10 5 10 10 10 ...
+##  $ Education               : Factor w/ 5 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;,..: 4 3 2 4 1 2 5 4 4 4 ...
+##  $ EducationField          : Factor w/ 6 levels &quot;Human Resources&quot;,..: 2 4 2 3 6 2 4 2 2 6 ...
+##  $ EnvironmentSatisfaction : Factor w/ 4 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;: 2 3 3 3 1 4 2 4 3 4 ...
+##  $ Gender                  : Factor w/ 2 levels &quot;Female&quot;,&quot;Male&quot;: 2 2 2 1 1 2 2 1 1 2 ...
+##  $ HourlyRate              : int  73 44 60 48 32 32 90 88 87 92 ...
+##  $ JobInvolvement          : Factor w/ 4 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;: 3 2 3 3 3 3 4 2 3 2 ...
+##  $ JobLevel                : int  2 5 3 3 1 3 1 2 1 2 ...
+##  $ JobRole                 : Factor w/ 9 levels &quot;Healthcare Representative&quot;,..: 8 6 5 8 7 5 7 8 9 1 ...
+##  $ JobSatisfaction         : Factor w/ 4 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;: 4 3 4 4 4 1 3 4 3 3 ...
+##  $ MaritalStatus           : Factor w/ 3 levels &quot;Divorced&quot;,&quot;Married&quot;,..: 1 3 3 2 3 1 2 1 2 2 ...
+##  $ MonthlyIncome           : int  4403 19626 9362 10422 3760 8793 2127 6694 2220 5063 ...
+##  $ MonthlyRate             : int  9250 17544 19944 24032 17218 4809 5561 24223 18410 15332 ...
+##  $ NumCompaniesWorked      : int  2 1 2 1 1 1 2 2 1 1 ...
+##  $ OverTime                : Factor w/ 2 levels &quot;No&quot;,&quot;Yes&quot;: 1 1 1 1 2 1 2 2 2 1 ...
+##  $ PercentSalaryHike       : int  11 14 11 19 13 21 12 14 19 14 ...
+##  $ PerformanceRating       : Factor w/ 2 levels &quot;3&quot;,&quot;4&quot;: 1 1 1 1 1 2 1 1 1 1 ...
+##  $ RelationshipSatisfaction: Factor w/ 4 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;: 3 1 3 3 3 3 1 3 4 2 ...
+##  $ StockOptionLevel        : int  1 0 0 2 0 2 0 3 1 1 ...
+##  $ TotalWorkingYears       : int  8 21 10 14 6 9 7 8 1 8 ...
+##  $ TrainingTimesLastYear   : int  3 2 2 3 2 4 5 5 2 3 ...
+##  $ WorkLifeBalance         : Factor w/ 4 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;: 2 4 3 3 3 2 2 3 3 2 ...
+##  $ YearsAtCompany          : int  5 20 2 14 6 9 4 1 1 8 ...
+##  $ YearsInCurrentRole      : int  2 7 2 10 3 7 2 0 1 2 ...
+##  $ YearsSinceLastPromotion : int  0 4 2 5 1 1 0 0 0 7 ...
+##  $ YearsWithCurrManager    : int  3 9 2 7 3 7 3 0 0 7 ...
+##  - attr(*, &quot;.internal.selfref&quot;)=&lt;externalptr&gt;</code></pre>
+<pre class="r"><code># Inspect the categorical variables with a cool plot
+show_plot(inspect_cat(df))</code></pre>
+<p><img src="Attritrion-Analysis_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<pre class="r"><code># Plot function
+cat_vs_cat_plot &lt;- function(df, x,y){
+  ggplot(data = df, aes_string(x = x, fill = y)) + 
+    geom_bar(position = &quot;fill&quot;, alpha = 0.9) + 
+    coord_flip() +
+    theme(legend.position=&quot;none&quot;,
+          axis.title.x=element_blank(),
+          axis.text.x=element_blank(),
+          axis.ticks.x=element_blank(),
+          plot.title = element_text(size = 5))
+}
+
+# Identify the names of the categorical variables
+categorical_variables = df %&gt;% select(-Attrition) %&gt;% select_if(is.factor) %&gt;% names()
+categorical_variables</code></pre>
+<pre><code>##  [1] &quot;BusinessTravel&quot;           &quot;Department&quot;              
+##  [3] &quot;Education&quot;                &quot;EducationField&quot;          
+##  [5] &quot;EnvironmentSatisfaction&quot;  &quot;Gender&quot;                  
+##  [7] &quot;JobInvolvement&quot;           &quot;JobRole&quot;                 
+##  [9] &quot;JobSatisfaction&quot;          &quot;MaritalStatus&quot;           
+## [11] &quot;OverTime&quot;                 &quot;PerformanceRating&quot;       
+## [13] &quot;RelationshipSatisfaction&quot; &quot;WorkLifeBalance&quot;</code></pre>
+</div>
+<div id="personal-categorical-metrics" class="section level1">
+<h1>Personal Categorical Metrics</h1>
+<pre class="r"><code>personal_cat_plot_list &lt;-lapply(categorical_variables[c(6, 10, 3, 4, 13, 14)],
+                             function(x) cat_vs_cat_plot(df, x, &quot;Attrition&quot;))
+ggarrange(plotlist = personal_cat_plot_list, common.legend = TRUE, legend=&quot;bottom&quot;,
+          nrow = 3, ncol = 2)</code></pre>
+<p><img src="Attritrion-Analysis_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>Attrition:</p>
+<ol style="list-style-type: decimal">
+<li>Is slighty higher with male employees compared to female employees.</li>
+<li>Is the highest for single people, and lowest for divorced people.</li>
+<li>Decreases gradually as employees are more educated.</li>
+<li>Is lowest amongst employees in the Medical and Life Sciences fields.</li>
+<li>Has an extremely negative influence to an employee’s work life balance.</li>
+</ol>
+</div>
+<div id="work-categorical-metrics" class="section level1">
+<h1>Work Categorical Metrics</h1>
+<pre class="r"><code>work_cat_plot_list &lt;-lapply(categorical_variables[c(8, 2, 9, 7)],
+                             function(x) cat_vs_cat_plot(df, x, &quot;Attrition&quot;))
+ggarrange(plotlist = work_cat_plot_list, common.legend = TRUE, legend=&quot;bottom&quot;,
+          nrow = 2, ncol = 2)</code></pre>
+<p><img src="Attritrion-Analysis_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>Attrition:</p>
+<ol style="list-style-type: decimal">
+<li>Is highest with employees in Sales, and lowest in director/manager roles.</li>
+<li>Has an extremely negative influence with an employee’s involvement with his/her job, and decreases gradually as she/he is more satisfied with their job.</li>
+</ol>
+<pre class="r"><code>work_cat_plot_list &lt;-lapply(categorical_variables[c(1, 5, 11, 12)],
+                             function(x) cat_vs_cat_plot(df, x, &quot;Attrition&quot;))
+ggarrange(plotlist = work_cat_plot_list, common.legend = TRUE, legend=&quot;bottom&quot;,
+          nrow = 2, ncol = 2)</code></pre>
+<p><img src="Attritrion-Analysis_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>Attrition:</p>
+<ol style="list-style-type: decimal">
+<li>Is highest with employees who travels frequently.</li>
+<li>Has a highly negative influence with an employee’s work environment</li>
+<li>Is high in overtime employees as expected.</li>
+</ol>
+</div>
+<div id="numeric-variables-visuallizing-correlations-to-attrition" class="section level1">
+<h1>Numeric Variables: Visuallizing Correlations to Attrition</h1>
+<pre class="r"><code>numerical_variables_names = df %&gt;% select_if(is.numeric) %&gt;% names()
+numerical_variables_names</code></pre>
+<pre><code>##  [1] &quot;Age&quot;                     &quot;DailyRate&quot;              
+##  [3] &quot;DistanceFromHome&quot;        &quot;HourlyRate&quot;             
+##  [5] &quot;JobLevel&quot;                &quot;MonthlyIncome&quot;          
+##  [7] &quot;MonthlyRate&quot;             &quot;NumCompaniesWorked&quot;     
+##  [9] &quot;PercentSalaryHike&quot;       &quot;StockOptionLevel&quot;       
+## [11] &quot;TotalWorkingYears&quot;       &quot;TrainingTimesLastYear&quot;  
+## [13] &quot;YearsAtCompany&quot;          &quot;YearsInCurrentRole&quot;     
+## [15] &quot;YearsSinceLastPromotion&quot; &quot;YearsWithCurrManager&quot;</code></pre>
+<pre class="r"><code>p1 &lt;- df %&gt;% ggplot(aes(x = Age, fill = Attrition)) + 
+  geom_density(alpha = 0.5) +  
+  #theme(axis.text.x = element_text(size =7,angle = 45, hjust = 1),axis.title.x=element_blank()) +
+  ggtitle(&quot;Age&quot;)
+
+p2 &lt;- df %&gt;% ggplot(aes(x = DailyRate, fill = Attrition)) + 
+  geom_density(alpha = 0.5) +  
+  #theme(axis.text.x = element_text(size =7,angle = 45, hjust = 1),axis.title.x=element_blank()) +
+  ggtitle(&quot;DailyRate&quot;)
+
+p3 &lt;- df %&gt;% ggplot(aes(x = DistanceFromHome, fill = Attrition)) + 
+  geom_density(alpha = 0.5) +  
+  #theme(axis.text.x = element_text(size =7,angle = 45, hjust = 1),axis.title.x=element_blank()) +
+  ggtitle(&quot;DistanceFromHome&quot;)
+
+p4 &lt;- df %&gt;% ggplot(aes(x = HourlyRate, fill = Attrition)) + 
+  geom_density(alpha = 0.5) +  
+  #theme(axis.text.x = element_text(size =7,angle = 45, hjust = 1),axis.title.x=element_blank()) +
+  ggtitle(&quot;HourlyRate&quot;)
+
+p5 &lt;- df %&gt;% ggplot(aes(x = JobLevel, fill = Attrition)) + 
+  geom_density(alpha = 0.5) +  
+  #theme(axis.text.x = element_text(size =7,angle = 45, hjust = 1),axis.title.x=element_blank()) +
+  ggtitle(&quot;JobLevel&quot;)
+
+p6 &lt;- df %&gt;% ggplot(aes(x = MonthlyIncome, fill = Attrition)) + 
+  geom_density(alpha = 0.5) +  
+  #theme(axis.text.x = element_text(size =7,angle = 45, hjust = 1),axis.title.x=element_blank()) +
+  ggtitle(&quot;MonthlyIncome&quot;)
+
+p7 &lt;- df %&gt;% ggplot(aes(x = MonthlyRate, fill = Attrition)) + 
+  geom_density(alpha = 0.5) +  
+  #theme(axis.text.x = element_text(size =7,angle = 45, hjust = 1),axis.title.x=element_blank()) +
+  ggtitle(&quot;MonthlyRate&quot;)
+
+p8 &lt;- df %&gt;% ggplot(aes(x = NumCompaniesWorked, fill = Attrition)) + 
+  geom_density(alpha = 0.5) +  
+  #theme(axis.text.x = element_text(size =7,angle = 45, hjust = 1),axis.title.x=element_blank()) +
+  ggtitle(&quot;NumCompaniesWorked&quot;)
+
+p9 &lt;- df %&gt;% ggplot(aes(x = PercentSalaryHike, fill = Attrition)) + 
+  geom_density(alpha = 0.5) +  
+  #theme(axis.text.x = element_text(size =7,angle = 45, hjust = 1),axis.title.x=element_blank()) +
+  ggtitle(&quot;PercentSalaryHike&quot;)
+
+p10 &lt;- df %&gt;% ggplot(aes(x = StockOptionLevel, fill = Attrition)) + 
+  geom_density(alpha = 0.5) +  
+  #theme(axis.text.x = element_text(size =7,angle = 45, hjust = 1),axis.title.x=element_blank()) +
+  ggtitle(&quot;StockOptionLevel&quot;)
+
+p11 &lt;- df %&gt;% ggplot(aes(x = TotalWorkingYears, fill = Attrition)) + 
+  geom_density(alpha = 0.5) +  
+  #theme(axis.text.x = element_text(size =7,angle = 45, hjust = 1),axis.title.x=element_blank()) +
+  ggtitle(&quot;TotalWorkingYears&quot;)
+
+p12 &lt;- df %&gt;% ggplot(aes(x = TrainingTimesLastYear, fill = Attrition)) + 
+  geom_density(alpha = 0.5) +  
+  #theme(axis.text.x = element_text(size =7,angle = 45, hjust = 1),axis.title.x=element_blank()) +
+  ggtitle(&quot;TrainingTimesLastYear&quot;)
+
+p13 &lt;- df %&gt;% ggplot(aes(x = YearsAtCompany, fill = Attrition)) + 
+  geom_density(alpha = 0.5) +  
+  #theme(axis.text.x = element_text(size =7,angle = 45, hjust = 1),axis.title.x=element_blank()) +
+  ggtitle(&quot;YearsAtCompany&quot;)
+
+p14 &lt;- df %&gt;% ggplot(aes(x = YearsInCurrentRole, fill = Attrition)) + 
+  geom_density(alpha = 0.5) +  
+  #theme(axis.text.x = element_text(size =7,angle = 45, hjust = 1),axis.title.x=element_blank()) +
+  ggtitle(&quot;YearsInCurrentRole&quot;)
+
+p15 &lt;- df %&gt;% ggplot(aes(x = YearsSinceLastPromotion, fill = Attrition)) + 
+  geom_density(alpha = 0.5) +  
+  #theme(axis.text.x = element_text(size =7,angle = 45, hjust = 1),axis.title.x=element_blank()) +
+  ggtitle(&quot;YearsSinceLastPromotion&quot;)
+
+p16 &lt;- df %&gt;% ggplot(aes(x = YearsWithCurrManager, fill = Attrition)) + 
+  geom_density(alpha = 0.5) +  
+  #theme(axis.text.x = element_text(size =7,angle = 45, hjust = 1),axis.title.x=element_blank()) +
+  ggtitle(&quot;YearsWithCurrManager&quot;)</code></pre>
+</div>
+<div id="personal-numerical-metrics" class="section level1">
+<h1>Personal Numerical Metrics</h1>
+<pre class="r"><code>ggarrange(p1, p3, p8, p11, nrow = 2, ncol = 2,
+          common.legend = TRUE, legend=&quot;bottom&quot;)</code></pre>
+<p><img src="Attritrion-Analysis_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>Attrition:</p>
+<ol style="list-style-type: decimal">
+<li>Is less likely with employees who has worked in more companies.</li>
+<li>Is the lowest in employees who are closer to work, and reasonably higher with employees who are farther.</li>
+<li>Is much likely with employees who have around 10 years of experience.</li>
+</ol>
+</div>
+<div id="compensation-numerical-metrics" class="section level1">
+<h1>Compensation Numerical Metrics</h1>
+<pre class="r"><code>ggarrange(p2, p4, p6, p7, p9, p10, nrow = 3, ncol = 2,
+          common.legend = TRUE, legend=&quot;bottom&quot;)</code></pre>
+<p><img src="Attritrion-Analysis_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>Attrition:</p>
+<ol style="list-style-type: decimal">
+<li>Is extremely influential to a monthly income of around $2500.</li>
+<li>Is extremely unlikely amongst employees with stock options.</li>
+</ol>
+</div>
+<div id="work-numerical-metrics" class="section level1">
+<h1>Work Numerical Metrics</h1>
+<pre class="r"><code>ggarrange(p5, p12, p13, p14, p15, p16, nrow = 3, ncol = 2,
+          common.legend = TRUE, legend=&quot;bottom&quot;)</code></pre>
+<p><img src="Attritrion-Analysis_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p>Attrition:</p>
+<ol style="list-style-type: decimal">
+<li>Is extremely likely with 1st level employees, and gradually decreases as job level increases.</li>
+<li>Is highest with employees of around 1 or 2 years in the company, as well as in their current role.</li>
+<li>Has a noticeable gap between yes and no for all training times last year except for 4 times.</li>
+</ol>
+</div>
+<div id="split-the-data" class="section level1">
+<h1>Split The Data</h1>
+<p>70% of our data is used for training the model, and 30% is for testing the model and validate actual values vs predicted values.</p>
+<pre class="r"><code># Convert character variables into categorical variables
+df = mutate_if(df, is.character, as.factor)
+
+# Convert 
+df = mutate_if(df, is.integer, as.factor)
+
+train_indices = createDataPartition(df$Attrition, p = 0.7, list = FALSE)
+train = df[train_indices,]
+test = df[-train_indices,]</code></pre>
+</div>
+<div id="predicting-attrition-knn-versus-naive-bayes" class="section level1">
+<h1>Predicting Attrition: KNN versus Naive Bayes</h1>
+<pre class="r"><code>dim(train)</code></pre>
+<pre><code>## [1] 609  31</code></pre>
+<pre class="r"><code># k-Nearest Neightbors (k-NN)
+train_control = trainControl(method = &quot;repeatedcv&quot;, number = 10, repeats = 3)
+KNN_model = train(train[,model_formula],
+                  as.factor(train$Attrition),
+                  method = &quot;knn&quot;,
+                  trControl = train_control,
+                  #preProcess = c(&quot;center&quot;,&quot;scale&quot;), 
+                  tuneLength = 20)
+KNN_CM = confusionMatrix(table(predict(KNN_model, train[,model_formula]),
+                               as.factor(train$Attrition)))
+KNN_CM$overall[&quot;Accuracy&quot;]</code></pre>
+<pre><code>##  Accuracy 
+## 0.8456486</code></pre>
+<pre class="r"><code>KNN_CM$byClass[&quot;Sensitivity&quot;]</code></pre>
+<pre><code>## Sensitivity 
+##   0.9921722</code></pre>
+<pre class="r"><code>KNN_CM$byClass[&quot;Specificity&quot;]</code></pre>
+<pre><code>## Specificity 
+##  0.08163265</code></pre>
+<pre class="r"><code># Naive Bayes
+naiveBayes_model = naiveBayes(train[,model_formula],
+                              as.factor(train$Attrition),
+                              laplace = 1)
+naiveBayes_CM = confusionMatrix(table(predict(naiveBayes_model, train[,model_formula]),
+                                      as.factor(train$Attrition)))
+naiveBayes_CM$overall[&quot;Accuracy&quot;]</code></pre>
+<pre><code>##  Accuracy 
+## 0.9392447</code></pre>
+<pre class="r"><code>naiveBayes_CM$byClass[&quot;Sensitivity&quot;]</code></pre>
+<pre><code>## Sensitivity 
+##   0.9530333</code></pre>
+<pre class="r"><code>naiveBayes_CM$byClass[&quot;Specificity&quot;]</code></pre>
+<pre><code>## Specificity 
+##   0.8673469</code></pre>
+<pre class="r"><code># Wrangling competition set
+df_no_attrition = mutate_if(df_no_attrition, is.character, as.factor)
+df_no_attrition = mutate_if(df_no_attrition, is.integer, as.factor)
+
+df_no_attrition_predict &lt;- predict(naiveBayes_model, df_no_attrition) 
+
+myout = cbind.data.frame(df_no_attrition$ID, df_no_attrition_predict)
+colnames(myout) &lt;- c(&quot;ID&quot;, &quot;Attrition&quot;)
+write.csv(myout, file =&quot;Case2PredictionsNguyen Attrition.csv&quot;, row.names = FALSE)</code></pre>
+<p>Our Naive Bayes model represents the original data with 93.92% accuracy, 95.30% sensitivity, and 86.73% specificity, which is greater than the desired minimum of 60% sensitivity and specificity. We believe this model is among the best at classifying employee attrition at Fritolay.</p>
+<p>It contains the following variables:</p>
+<ol style="list-style-type: decimal">
+<li>Age<br />
+</li>
+<li>DailyRate<br />
+</li>
+<li>Education<br />
+</li>
+<li>EnvironmentSatisfaction<br />
+</li>
+<li>JobInvolvement<br />
+</li>
+<li>JobLevel<br />
+</li>
+<li>JobSatisfaction<br />
+</li>
+<li>MonthlyIncome<br />
+</li>
+<li>MonthlyRate<br />
+</li>
+<li>RelationshipSatisfaction<br />
+</li>
+<li>StockOptionLevel<br />
+</li>
+<li>TotalWorkingYears<br />
+</li>
+<li>TrainingTimesLastYear<br />
+</li>
+<li>WorkLifeBalance<br />
+</li>
+<li>YearsAtCompany<br />
+</li>
+<li>YearsInCurrentRole<br />
+</li>
+<li>YearsWithCurrManager</li>
+</ol>
+</div>
+<div id="predicting-monthlyincome-linear-regression" class="section level1">
+<h1>Predicting MonthlyIncome: Linear Regression</h1>
+<pre class="r"><code>train_indices = createDataPartition(attritionData$Attrition, p = 0.7, list = FALSE)
+
+train = attritionData[train_indices,]
+test = attritionData[-train_indices,]
+
+# Linear Regression
+fit = lm(formula = MonthlyIncome ~ Age + Education + JobLevel + MonthlyRate +
+                   NumCompaniesWorked + TotalWorkingYears + YearsAtCompany +
+                   YearsInCurrentRole + YearsSinceLastPromotion +
+                   YearsWithCurrManager, data = train)
+summary(fit)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = MonthlyIncome ~ Age + Education + JobLevel + MonthlyRate + 
+##     NumCompaniesWorked + TotalWorkingYears + YearsAtCompany + 
+##     YearsInCurrentRole + YearsSinceLastPromotion + YearsWithCurrManager, 
+##     data = train)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5192.0  -846.4    31.4   693.9  3813.3 
+## 
+## Coefficients:
+##                           Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)             -1.350e+03  3.207e+02  -4.210 2.95e-05 ***
+## Age                     -2.160e+00  8.306e+00  -0.260    0.795    
+## Education               -5.976e+01  5.574e+01  -1.072    0.284    
+## JobLevel                 3.675e+03  8.155e+01  45.060  &lt; 2e-16 ***
+## MonthlyRate             -8.839e-03  7.850e-03  -1.126    0.261    
+## NumCompaniesWorked       4.312e+00  2.538e+01   0.170    0.865    
+## TotalWorkingYears        7.869e+01  1.742e+01   4.516 7.58e-06 ***
+## YearsAtCompany          -1.332e+01  2.005e+01  -0.664    0.507    
+## YearsInCurrentRole      -2.387e+01  2.506e+01  -0.952    0.341    
+## YearsSinceLastPromotion  2.258e+00  2.275e+01   0.099    0.921    
+## YearsWithCurrManager    -1.775e+01  2.425e+01  -0.732    0.464    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1365 on 598 degrees of freedom
+## Multiple R-squared:  0.9115, Adjusted R-squared:   0.91 
+## F-statistic: 615.9 on 10 and 598 DF,  p-value: &lt; 2.2e-16</code></pre>
+<pre class="r"><code>predictions = predict(fit, test)
+RMSE(test$MonthlyIncome, predictions)</code></pre>
+<pre><code>## [1] 1432.709</code></pre>
+<pre class="r"><code>SalaryPred &lt;- predict(fit, df_no_salary) 
+myout=cbind.data.frame(df_no_salary$ID,SalaryPred)
+colnames(myout) = c(&quot;ID&quot;,&quot;MonthlyIncome&quot;)
+write.csv(myout, file =&quot;Case2PredictionsNguyen Salary.csv&quot;, row.names = FALSE)</code></pre>
+<p>Our linear regression model is 91.15% effective at representing the original data, with a prediction error of $1432.709 which is below our desired maximum of $3000.</p>
+<p>We believe this model is among the best at classifying employee attrition at Fritolay.</p>
+<p>It contains the following variables:</p>
+<ol style="list-style-type: decimal">
+<li>Age</li>
+<li>Education</li>
+<li>JobLevel</li>
+<li>MonthlyRate</li>
+<li>NumCompaniesWorked</li>
+<li>TotalWorkingYears</li>
+<li>YearsAtCompany</li>
+<li>YearsInCurrentRole</li>
+<li>YearsSinceLastPromotion</li>
+<li>YearsWithCurrManager</li>
+</ol>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
