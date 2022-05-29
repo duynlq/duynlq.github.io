@@ -1,19 +1,22 @@
 <!DOCTYPE html>
+
 <html>
 
 <head>
-  <title>Conway's Game of Life</title>
-  <link rel="stylesheet" href="style.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
-  <meta charset="utf-8">
 
-<!--   <script src="libraries/p5.js"></script>
-  <script src="sketch.js"></script> -->
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
-  <script src="gameoflife_files/libraries/miq-min.js"></script>
-  <script src="gameoflife_files/libraries/mclass-min.js"></script>
-  <script src="gameoflife_files/gameoflife.js"></script>
 
+<meta name="author" content="Duy Nguyen and Garrett Shankel" />
+
+
+<title>Beers-Breweries-EDA.knit</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
@@ -87,10 +90,9 @@ pre code {
 
 <style type="text/css">
 .dropdown-submenu {
-  position: relative;
+  position: absolute;
 }
 .dropdown-submenu>.dropdown-menu {
-  top: 0;
   left: 100%;
   margin-top: -6px;
   margin-left: -1px;
@@ -212,58 +214,21 @@ $(document).ready(function () {
 }
 </style>
 
-<style type="text/css">
-.playpause label {
-  display: block;
-  box-sizing: border-box;
-  width: 0;
-  height: 74px;
-  border-color: transparent transparent transparent #202020;
-  transition: 100ms all ease;
-  cursor: pointer;
-  border-style: double;
-  border-width: 0px 0 0px 60px;
-}
-.playpause input[type=checkbox] {
-  position: absolute;
-  left: -9999px;
-}
-.playpause input[type=checkbox]:checked + label {
-  border-style: solid;
-  border-width: 37px 0 37px 60px;
-}
-.playpause input[type=checkbox]:focus + label {
-  box-shadow: 0 0 5px white;
-}
+<!-- code folding -->
 
-.header
-{
 
-/*  text-align: center;*/
-  font-family: 'Dancing Script', cursive;
-}
 
-h2
-{
-  font-size: 50px;
-}
-
-#rangeSize{
-    transform: rotateY(180deg);
-}
-
-.flex {
-   display: flex;
-   flex-direction: row;
-}
-</style>
 
 </head>
-<center>
+
 <body>
-  
+
+
 <div class="container-fluid main-container">
-  
+
+
+
+
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -298,63 +263,61 @@ h2
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
-  
-  <br><br>
-  
-	<div class="header">
-		<h1>John Conway's<br>Game of Life</h1>
-	</div>
 
-	<div class="body">
-	<h3>Play The Simulation!</h3>
+<div id="header">
 
-    <div id="canvas-container">
-    	<form>
-  			<div class="playpause">
-    			<input type="checkbox" id="playpause"/>
-    			<label for="playpause" ></label>
- 			  </div>
- 			  <div>
- 			    <img src="gameoflife_files/figure-html/slow.png" alt="" width="25" height="25">
- 			    ...
- 			    <img src="gameoflife_files/figure-html/fast.png" alt="" width="25" height="25">
- 			  </div>
-        <div>
-          <div class="input-group">
-            <input id="speed" type="range" min="1" max="500" step="49" value="245" title="speed dial">
-          </div>
-        </div>
-        
- 			  <div>
- 			    <img src="gameoflife_files/figure-html/zoom-in.png" alt="" width="25" height="25">
- 			    ...
- 			    <img src="gameoflife_files/figure-html/zoom-out.png" alt="" width="25" height="25">
- 			  </div>
-        <div>
-          <div class="input-group">
-            <input id="size" type="range" min="1" max="11" value="6" title="grid size">
-          </div>
-        </div>            
 
-            <input id="next" type="button" value="Next" text-align="right">
-            <label id="generation" text-align="right">0</label>
-        </form>
-        <div id="canvas-div"></div>
-        <select id="shapes"></select>
 
-    </div>
 
-    <h3>The Rules</h3>
+</div>
 
-    <dl>
-    	<dt><b>For a space that is "populated":</b>
-    	<dd>Each cell with one or no neighors dies,
-    	<dd>Each cell with four or more neighbors dies,
-    	<dd>Each cell with two or three neighbors lives.
-    	<dt><b>For a space that is "empty" or "unpopulated"</b>
-    	<dd>Each cell with three neighbors becomes populated.
-    </dl>
+
+<p><font size=6 color="Green" family="Courier"><b> Interactive App</b></font></p>
+<p><iframe height="800" width="120%" frameborder="no" src="https://epicduy.shinyapps.io/DuyInteractiveApp/"> </iframe></p>
+ 
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 
 </body>
-</center>
 </html>
