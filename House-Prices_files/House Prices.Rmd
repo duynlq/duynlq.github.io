@@ -250,7 +250,7 @@ CVModel2 <- train(log(SalePrice) ~ log(GrLivArea) + as.factor(Neighborhood) + as
 paste(CVModel2$results$RMSE, "  | ", CVModel2$results$Rsquared, " | ", press(model2))
 ```
 
-```{r, echo=F, include=F}
+```{r, echo=F}
 #Parameters
 summary(model2)
 confint(model2)
