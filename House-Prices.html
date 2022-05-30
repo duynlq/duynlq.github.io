@@ -299,11 +299,10 @@ $(document).ready(function () {
 <p>The R-Squared values below proves that our full model performs the best, with Neighborhood added as an additive.</p>
 <p><span class="math display">\[log(SalePrice) = β0 + β1log(GrLivArea) + β2Edwards + \]</span> <span class="math display">\[β3NAmes + β4Edwards*log(GrLivArea) + β5NAmes*log(GrLivArea)\]</span></p>
 <pre><code>## [1] &quot;0.527926654806879   |  0.521632343537637&quot;</code></pre>
-<p><font size=6 color="Green" family="Courier"><b>Final Model Assumptions</b></font></p>
+<h3>Assumptions</h3>
 <p><img src="House-Prices_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
-<p><font size=6 color="Green" family="Courier"><b> Sanity Check of Above 2 Models</b></font></p>
-<div id="extra-sums-of-square-test" class="section level3">
-<h3>Extra Sums of Square Test</h3>
+<h3>Sanity Check of Above 2 Models</h3>
+<h5><b>Extra Sums of Square Test</b></h5>
 <p>There is enough evidence below to conclude that the latter model is superior (p-value &lt; 0.05).</p>
 <pre><code>## Analysis of Variance Table
 ## 
@@ -315,15 +314,12 @@ $(document).ready(function () {
 ## 2    375 13.418  4    2.4137 16.863 1.004e-12 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-</div>
-<div id="repeated-cross-validation" class="section level3">
-<h3>Repeated Cross-Validation</h3>
+<h5><b>Repeated Cross-Validation</b></h5>
 <p>Both models are evaluated 5 times using RMSE, R-Squared, and PRESS, respectively. We desire the lower RMSE, higher R-Squared, and lower PRESS. The latter model qualifies all three categories.</p>
 <pre><code>## [1] &quot;0.203387941136873   |  0.445487375655191  |  16.028917038051&quot;</code></pre>
 <pre><code>## [1] &quot;0.189419154092284   |  0.515579561289575  |  13.9480700164513&quot;</code></pre>
-<p><font size=6 color="Green" family="Courier"><b>Conclusion</b></font></p>
-<div id="complete-regression-model" class="section level3">
-<h3>Complete Regression Model</h3>
+<h3>Conclusion</h3>
+<h5><b>Complete Regression Model</b></h5>
 <p><span class="math display">\[log(SalePrice) = 5.913 + 0.82log(GrLivArea) + 1.01Edwards + \]</span> <span class="math display">\[2.58NAmes - 0.146Edwards*log(GrLivArea) - 0.347NAmes*log(GrLivArea)\]</span></p>
 <p>The data suggests that a doubling of the square footage of living area of houses increases the estimated
 median of its sales price by 76.514%. We are 95% confident that the multiplicative increase in
