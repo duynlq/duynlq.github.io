@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Interactive Application</title>
+  <title>Employee Attrition Analysis</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -77,10 +77,10 @@
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>Interactive Application</h2>
+          <h2>Employee Attrition Analysis</h2>
           <ol>
             <li><a href="index.html#portfolio">Portfolio</a></li>
-            <li>Interactive Application</li>
+            <li>Employee Attrition Analysis</li>
           </ol>
         </div>
 
@@ -93,50 +93,103 @@
 
         <p>Produce your own EDA plots using this application built with Shinyapps via R.<br>Future goal is to allow users to upload their own dataset file.</p><br>
 
-        <iframe height="850" width="100%" frameborder="no" src="https://epicduy.shinyapps.io/DuyInteractiveApp/"> </iframe>
+        <style>
+          /* Six columns side by side */
+          .column {
+            float: left;
+            width: 10%;
+          }
+        </style>
 
-        <!-- <div class="row gy-4">
+        <div class="mySlides">
+          <div class="numbertext">1 / 10</div>
+            <img src="assets/img/portfolio/portfolio-2/img1.jpg" style="width:100%">
+        </div>
 
-          <div class="col-lg-8">
-            <div class="portfolio-details-slider swiper">
-              <div class="swiper-wrapper align-items-center">
+        <div class="mySlides">
+          <div class="numbertext">2 / 10</div>
+            <img src="assets/img/portfolio/portfolio-2/img2.jpg" style="width:100%">
+        </div>
 
-                <div class="swiper-slide">
-                  <img src="assets/img/portfolio/portfolio-details-1.jpg" alt="">
-                </div>
+        <div class="mySlides">
+          <div class="numbertext">3 / 10</div>
+            <img src="assets/img/portfolio/portfolio-2/img3.jpg" style="width:100%">
+        </div>
 
-                <div class="swiper-slide">
-                  <img src="assets/img/portfolio/portfolio-details-2.jpg" alt="">
-                </div>
+        <div class="mySlides">
+          <div class="numbertext">4 / 10</div>
+            <img src="assets/img/portfolio/portfolio-2/img4.jpg" style="width:100%">
+        </div>
 
-                <div class="swiper-slide">
-                  <img src="assets/img/portfolio/portfolio-details-3.jpg" alt="">
-                </div>
+        <div class="mySlides">
+          <div class="numbertext">5 / 10</div>
+            <img src="assets/img/portfolio/portfolio-2/img5.jpg" style="width:100%">
+        </div>
 
-              </div>
-              <div class="swiper-pagination"></div>
-            </div>
+        <div class="mySlides">
+          <div class="numbertext">6 / 10</div>
+            <img src="assets/img/portfolio/portfolio-2/img6.jpg" style="width:100%">
+        </div>
+
+        <div class="mySlides">
+          <div class="numbertext">7 / 10</div>
+            <img src="assets/img/portfolio/portfolio-2/img7.jpg" style="width:100%">
+        </div>
+
+        <div class="mySlides">
+          <div class="numbertext">8 / 10</div>
+            <img src="assets/img/portfolio/portfolio-2/img8.jpg" style="width:100%">
+        </div>
+
+        <div class="mySlides">
+          <div class="numbertext">9 / 10</div>
+            <img src="assets/img/portfolio/portfolio-2/img9.jpg" style="width:100%">
+        </div>
+
+        <div class="mySlides">
+          <div class="numbertext">10 / 10</div>
+            <img src="assets/img/portfolio/portfolio-2/img10.jpg" style="width:100%">
+        </div>
+
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+        <div class="caption-container">
+          <p id="caption"></p>
+        </div>
+
+        <div class="row">
+          <div class="column">
+            <img class="demo cursor" src="assets/img/portfolio/portfolio-2/img1.jpg" style="width:100%" onclick="currentSlide(1)">
           </div>
-
-          <div class="col-lg-4">
-            <div class="portfolio-info">
-              <h3>Project information</h3>
-              <ul>
-                <li><strong>Category</strong>: Web design</li>
-                <li><strong>Client</strong>: ASU Company</li>
-                <li><strong>Project date</strong>: 01 March, 2020</li>
-                <li><strong>Project URL</strong>: <a href="#">www.example.com</a></li>
-              </ul>
-            </div>
-            <div class="portfolio-description">
-              <h2>This is an example of portfolio detail</h2>
-              <p>
-                Autem ipsum nam porro corporis rerum. Quis eos dolorem eos itaque inventore commodi labore quia quia. Exercitationem repudiandae officiis neque suscipit non officia eaque itaque enim. Voluptatem officia accusantium nesciunt est omnis tempora consectetur dignissimos. Sequi nulla at esse enim cum deserunt eius.
-              </p>
-            </div>
+          <div class="column">
+            <img class="demo cursor" src="assets/img/portfolio/portfolio-2/img2.jpg" style="width:100%" onclick="currentSlide(2)">
           </div>
-
-        </div> -->
+          <div class="column">
+            <img class="demo cursor" src="assets/img/portfolio/portfolio-2/img3.jpg" style="width:100%" onclick="currentSlide(3)">
+          </div>
+          <div class="column">
+            <img class="demo cursor" src="assets/img/portfolio/portfolio-2/img4.jpg" style="width:100%" onclick="currentSlide(4)">
+          </div>
+          <div class="column">
+            <img class="demo cursor" src="assets/img/portfolio/portfolio-2/img5.jpg" style="width:100%" onclick="currentSlide(5)">
+          </div>
+          <div class="column">
+            <img class="demo cursor" src="assets/img/portfolio/portfolio-2/img6.jpg" style="width:100%" onclick="currentSlide(6)">
+          </div>
+          <div class="column">
+            <img class="demo cursor" src="assets/img/portfolio/portfolio-2/img7.jpg" style="width:100%" onclick="currentSlide(7)">
+          </div>
+          <div class="column">
+            <img class="demo cursor" src="assets/img/portfolio/portfolio-2/img8.jpg" style="width:100%" onclick="currentSlide(8)">
+          </div>
+          <div class="column">
+            <img class="demo cursor" src="assets/img/portfolio/portfolio-2/img9.jpg" style="width:100%" onclick="currentSlide(9)">
+          </div>
+          <div class="column">
+            <img class="demo cursor" src="assets/img/portfolio/portfolio-2/img10.jpg" style="width:100%" onclick="currentSlide(10)">
+          </div>
+        </div>
 
       </div>
     </section><!-- End Portfolio Details Section -->
