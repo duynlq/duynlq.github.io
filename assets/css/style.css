@@ -589,17 +589,17 @@ section {
   color: #fff;
   font-size: 28px;
   text-align: center;
-  background: rgba(20, 157, 221, 0);
+  background: rgba(255, 255, 255, 0);
   transition: 0.1s;
   width: 100%;
 }
 
 .portfolio .portfolio-wrap .portfolio-links a:hover {
-  background: rgba(20, 157, 221, 0);
+  background: rgba(255, 255, 255, 0);
 }
 
 .portfolio .portfolio-wrap .portfolio-links a+a {
-  border-left: 1px solid #0037b3ed;
+  border-left: 1px solid #ffffff;
 }
 
 .portfolio .portfolio-wrap:hover::before {
