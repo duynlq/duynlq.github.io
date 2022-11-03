@@ -589,13 +589,13 @@ section {
   color: #fff;
   font-size: 28px;
   text-align: center;
-  background: rgba(20, 157, 221, 0.75);
-  transition: 0.3s;
+  background: rgba(20, 157, 221, 0);
+  transition: 0.1s;
   width: 100%;
 }
 
 .portfolio .portfolio-wrap .portfolio-links a:hover {
-  background: rgba(20, 157, 221, 0.95);
+  background: rgba(20, 157, 221, 0);
 }
 
 .portfolio .portfolio-wrap .portfolio-links a+a {
