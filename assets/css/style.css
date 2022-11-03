@@ -577,7 +577,7 @@ section {
   opacity: 1;
   left: 0;
   right: 0;
-  bottom: -150px;
+  bottom: -220px;
   z-index: 3;
   position: absolute;
   transition: all ease-in-out 0.3s;
@@ -587,7 +587,7 @@ section {
 
 .portfolio .portfolio-wrap .portfolio-links a {
   color: #fff;
-  font-size: 130px;
+  font-size: 180px;
   text-align: center;
   background: rgba(255, 255, 255, 0);
   transition: 0.3s;
@@ -831,14 +831,14 @@ section {
 # Contact
 --------------------------------------------------------------*/
 .contact {
-  padding-bottom: 130px;
+  padding-bottom: 160px;
 }
 
 .contact .info {
   padding: 30px;
   background: #fff;
   width: 100%;
-  box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.12);
 }
 
 .contact .info i {
@@ -847,7 +847,7 @@ section {
   float: left;
   width: 44px;
   height: 44px;
-  background: #dff3fc;
+  background: #f6e793;
   display: flex;
   justify-content: center;
   align-items: center;
