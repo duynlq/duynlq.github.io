@@ -1204,8 +1204,8 @@ section {
  table-cell; 
  width: 68px; 
  height: 68px; 
- border: 0.5px solid white;
- background: url("https://i.imgur.com/9pGa42O.png"); /* 340x340 */ cursor:
+ border: 1px solid white;
+ background: url("https://i.imgur.com/9pGa42O.png"); /* 340x340 */ cursor: 
  pointer; }
 
 .tile1 {background-position: 0px 0px;}
