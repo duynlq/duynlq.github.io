@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>House Prices Regression Analysis</title>
+  <title>Sliding Puzzle</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -25,7 +25,7 @@
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="assets/css/style.css" type="text/css" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: iPortfolio - v3.9.1
@@ -91,13 +91,49 @@
     <section id="portfolio-details" class="portfolio-details">
       <div class="container">
 
-        <p>
-        This is an end-of-term project for the <em>Stats Foundations</em> course of the DataScience@SMU program.
-        </p>
-        <br>
+<!-- ### -->
 
-        <iframe src="assets/Group3_Duy_Leonardo_Jordan_HousePricesProject.pdf#toolbar=0" width="100%" height="500px">
-        </iframe>
+        <center><div id="table" style="display: table;">
+          <div id="row1" style="display: table-row;">
+            <div id="cell11" class="tile1" onClick="clickTile(1,1);"></div>
+            <div id="cell12" class="tile2" onClick="clickTile(1,2);"></div>
+            <div id="cell13" class="tile3" onClick="clickTile(1,3);"></div>
+<!--             <div id="cell14" class="tile4" onClick="clickTile(1,4);"></div>
+            <div id="cell15" class="tile5" onClick="clickTile(1,5);"></div> -->
+          </div>
+          <div id="row2" style="display: table-row;">
+            <div id="cell21" class="tile4" onClick="clickTile(2,1);"></div>
+            <div id="cell22" class="tile5" onClick="clickTile(2,2);"></div>
+            <div id="cell23" class="tile6" onClick="clickTile(2,3);"></div>
+<!--             <div id="cell24" class="tile9" onClick="clickTile(2,4);"></div>
+            <div id="cell25" class="tile10" onClick="clickTile(2,5);"></div> -->
+          </div>
+          <div id="row3" style="display: table-row;">
+            <div id="cell31" class="tile7" onClick="clickTile(3,1);"></div>
+            <div id="cell32" class="tile8" onClick="clickTile(3,2);"></div>
+            <div id="cell33" class="tile9" onClick="clickTile(3,3);"></div>
+<!--             <div id="cell34" class="tile14" onClick="clickTile(3,4);"></div>
+            <div id="cell35" class="tile15" onClick="clickTile(3,5);"></div> -->
+          </div>
+<!--           <div id="row4" style="display: table-row;">
+            <div id="cell41" class="tile16" onClick="clickTile(4,1);"></div>
+            <div id="cell42" class="tile17" onClick="clickTile(4,2);"></div>
+            <div id="cell43" class="tile18" onClick="clickTile(4,3);"></div>
+            <div id="cell44" class="tile19" onClick="clickTile(4,4);"></div>
+            <div id="cell45" class="tile20" onClick="clickTile(4,5);"></div>
+          </div> -->
+<!--           <div id="row5" style="display: table-row;">
+            <div id="cell51" class="tile21" onClick="clickTile(5,1);"></div>
+            <div id="cell52" class="tile22" onClick="clickTile(5,2);"></div>
+            <div id="cell53" class="tile23" onClick="clickTile(5,3);"></div>
+            <div id="cell54" class="tile24" onClick="clickTile(5,4);"></div>
+            <div id="cell55" class="tile25" onClick="clickTile(5,5);"></div>
+          </div> -->
+        </div>
+        <button onClick="shuffle();">Shuffle</button>
+        </center>
+
+<!-- ### -->
 
       </div>
     </section><!-- End Portfolio Details Section -->
@@ -110,17 +146,13 @@
       <div class="copyright">
         &copy; Copyright 2022 <strong><span>Duy Nguyen</span></strong>
       </div>
-      <!-- <div class="credits"> -->
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/ -->
-        <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
-      <!-- </div> -->
     </div>
   </footer><!-- End  Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Slider Puzzle JS Files -->
+  <script src="assets/vendor/sliderpuzzle_files/script.js"></script>
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
