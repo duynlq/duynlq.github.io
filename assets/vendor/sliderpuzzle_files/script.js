@@ -1,6 +1,6 @@
 //Manual user inputs
-let n = 5;
-let last_tile = "tile25";
+let n = 3;
+let last_tile = "tile9";
 
 function swapTiles(cell1,cell2) {
   var temp = document.getElementById(cell1).className;
