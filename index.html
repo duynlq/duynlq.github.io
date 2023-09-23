@@ -217,9 +217,10 @@
 
 			<script>
 			    // Function to display a confirmation dialog when leaving the page
-			    window.onbeforeunload = function() {
-			        return "Are you sure you want to leave my portfolio?";
-			    };
+			    window.addEventListener('beforeunload', function (e) {
+			        // Custom message (not guaranteed to be displayed in all browsers)
+			        e.returnValue = "Are you sure you want to leave my portfolio?";
+			    });
 			</script>
 	</body>
 </html>
